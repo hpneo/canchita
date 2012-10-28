@@ -140,3 +140,51 @@ a {
 #footer {
 	font-size: 14px;
 }
+
+/* #movie */
+
+#movie {
+	overflow: hidden;
+}
+
+#movie h3.label {
+	display: inline;
+  margin: 0;
+  padding: 1px 12px;
+  font-weight: 900;
+  color: #faefef;
+  background: #942c2c;
+	text-transform: lowercase;
+	font-variant: small-caps;
+  border-radius: 3px;
+}
+
+#movie .column {
+	display: block;
+	float: left;
+	padding: 1%;
+}
+
+#movie .column.poster {
+	width: 28%;
+}
+
+#movie .column.info {
+	width: 58%;
+}
+
+#movie .column.poster img {
+	width: 100%;
+}
+
+#movie .column.info .button {
+  color: #faefef;
+  background: #942c2c;
+  padding: 4px 12px;
+  border: none;
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  border-radius: 3px;
+}

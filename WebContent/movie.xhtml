@@ -8,12 +8,20 @@
 
 	<ui:composition template="layouts/application.xhtml">
 		<ui:define name="body">
-      <div class="container">
+      <div class="container" id="movie">
+        <h3 class="label"><h:outputText value="#{movieBean.movie.genre.name}" /></h3>
+        <h2><h:outputText value="#{movieBean.movie.name}" /></h2>
         <div class="column poster">
-          <h:outputText value="#{movieBean.movie.name}" />
           <h:graphicImage name="#{movieBean.movie.poster}" library="images/posters" />
         </div>
-        <div class="column info"></div>
+        <div class="column info">
+          <p>
+            <h:outputText value="#{movieBean.movie.description}" />
+          </p>
+          <h:form>
+            <h:commandButton value="Comprar tickets" action="#{movieBean.buyTicket}" class="button" />
+          </h:form>
+        </div>
       </div>
 		</ui:define>
 	</ui:composition>
