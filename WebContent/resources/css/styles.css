@@ -19,6 +19,40 @@ a {
   text-decoration: none;
 }
 
+.validate-error {
+  font-size: 13px;
+  background: #942c2c;
+  color: #fff;
+  padding: 3px 6px;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.validate-success {
+  font-size: 13px;
+  background: #2c9438;
+  color: #fff;
+  padding: 3px 6px;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.validate-error.message {
+  font-size: 14px;
+}
+
+.button {
+  color: #faefef;
+  background: #2c9438;
+  padding: 4px 12px;
+  border: none;
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  border-radius: 3px;
+}
+
 #header,
 #nav,
 #body,
@@ -153,7 +187,7 @@ a {
   padding: 1px 12px;
   font-weight: 900;
   color: #faefef;
-  background: #942c2c;
+  background: #2c3f94;
 	text-transform: lowercase;
 	font-variant: small-caps;
   border-radius: 3px;
@@ -177,14 +211,23 @@ a {
 	width: 100%;
 }
 
-#movie .column.info .button {
-  color: #faefef;
-  background: #942c2c;
-  padding: 4px 12px;
-  border: none;
-  font-size: 22px;
-  font-weight: 900;
-  text-transform: lowercase;
-  font-variant: small-caps;
-  border-radius: 3px;
+/* #auth */
+
+#auth form {
+	display: block;
+	width: 30%;
+	margin: 20px auto;
+}
+
+#auth form label {
+	text-transform: lowercase;
+	font-variant: small-caps;
+	font-weight: 900;
+}
+
+#auth form input.string {
+	border: solid 1px #fff;
+	padding: 4px;
+	border-radius: 2px;
+	margin-left: 6px;
 }

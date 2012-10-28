@@ -1,6 +1,7 @@
 package com.canchita.dao;
 
-import java.util.List;
+import java.util.*;
+import java.util.Map.*;
 import javax.persistence.*;
 
 import com.canchita.models.*;
@@ -67,6 +68,46 @@ public class UserDAO implements ModelDAO<User> {
     this.em.remove(record);
     this.em.flush();
     this.em.getTransaction().commit();
+  }
+  
+  public User find_by(Map<String,String> attributes) {
+    String queryString = "SELECT u FROM USER u";
+    
+    Set<Entry<String,String>> parameters = attributes.entrySet();    
+    Iterator<Entry<String,String>> iterator = parameters.iterator();
+    
+    StringBuilder sb = new StringBuilder();
+    boolean first = true;
+    while(iterator.hasNext()) {
+      Entry<String,String> parameter = iterator.next();
+      
+      if (first)
+        first = false;
+      else
+        sb.append(" AND ");
+      
+      sb.append("u." + parameter.getKey() + " = :u" + parameter.getKey());
+    }
+    
+    queryString += " WHERE " + sb.toString();
+    
+    Query query = this.em.createQuery(queryString);
+    
+    iterator = parameters.iterator();
+    
+    while(iterator.hasNext()) {
+      Entry<String,String> parameter = iterator.next();
+      query.setParameter("u" + parameter.getKey(), parameter.getValue());
+    }
+    
+    List<User> results = query.getResultList();
+    User record = null;
+    
+    if(!results.isEmpty()) {
+      record = results.get(0);
+    }
+    
+    return record;
   }
   
   private EntityManager createEntityManager() {

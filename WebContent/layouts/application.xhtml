@@ -17,12 +17,11 @@
 		      <h:graphicImage name="icon.png" library="images" />
 		      canchita.pe
 		    </h1>
-	    	<!-- <ui:include src="header.xhtml"/> -->
 	    </ui:insert>
 	  </div>
 	  <div id="nav">
 	    <ui:insert name="nav">
-		    <a href="#">Inicio</a>
+	      <h:outputLink value="#{facesContext.externalContext.requestContextPath}">Inicio</h:outputLink>
 		    <a href="#">En cartelera</a>
 		    <a href="#" class="nav-right">Mis tickets</a>
 	    </ui:insert>

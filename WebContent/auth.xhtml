@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<ui:composition template="layouts/application.xhtml">
+		<ui:define name="body">
+		  <div class="container" id="auth">
+			  <h:form>
+			    <h:outputText value="#{authBean.message}" class="message validate-#{authBean.status}" rendered="#{not authBean.status ne ''}" />
+	        <p>
+	          <label for="user_email">Email:</label>
+            <h:message for="user_email" class="validate-error" />
+	          <h:inputText id="user_email" value="#{authBean.email}" class="string" label="Email">
+              <f:validateRequired  />
+	          </h:inputText>
+	        </p>
+	        <p>
+	          <label for="user_password">Password:</label>
+            <h:message for="user_password" class="validate-error" />
+	          <h:inputSecret id="user_password" value="#{authBean.password}" class="string" label="Password">
+              <f:validateRequired />
+	          </h:inputSecret>
+	        </p>
+	        <p>
+	          <h:commandButton value="Entrar" action="#{authBean.auth}" class="button" />
+	        </p>
+			  </h:form>
+		  </div>
+		</ui:define>
+	</ui:composition>
+</html>
