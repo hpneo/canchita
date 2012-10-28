@@ -1,0 +1,142 @@
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  -webkit-text-stroke: 0.001px transparent;
+  font-size: 1.2em;
+  /*background: url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/navy_blue.png');
+  background: url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png');
+  background: url('http://subtlepatterns.com/patterns/dark_leather.png');
+  background: url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/subtle_carbon.png');*/
+  background: url('background.png.xhtml?ln=images');
+  color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 2px 0;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#header,
+#nav,
+#body,
+#footer {
+  display: block;
+  overflow: hidden;
+  width: 900px;
+  margin: 10px auto;
+}
+
+/* #header */
+
+#header h1 {
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 1px 1px 2px #515151,  0px 0px 1px #515151;
+}
+
+#header h1 img {
+  width: 48px;
+  vertical-align: middle;
+}
+
+/* #nav */
+
+#nav .nav-right {
+  float: right;
+}
+
+#nav a {
+  display: inline-block;
+  font-weight: 900;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  margin: 2px 4px;
+  color: #fff;
+  border-radius: 3px;
+  text-shadow: 1px 1px 0px #000;
+}
+#nav a:hover {
+  background: #942c2c;
+  color: #faefef;
+}
+
+/* #body */
+
+#body #slideshow {
+  position: relative;
+  width: 900px;
+  height: 304px;
+}
+#body #slideshow img {
+  position: absolute;
+  display: block;
+  width: 900px;
+  height: 304px;
+  border-radius: 3px;
+}
+
+#body #slideshow .caption {
+  position: absolute;
+  display: block;
+  width: 900px;
+  bottom: 0;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 3px;
+}
+
+#body .lighter {
+  font-weight: 200;
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+
+#body hr {
+  border: solid 1px #999;
+}
+
+#body .gallery {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+#body .gallery li {
+  display: inline-block;
+  vertical-align: bottom;
+  position: relative;
+  margin: 5px;
+}
+
+#body .gallery img {
+  display: block;
+  width: 115px;
+  position: relative;
+}
+
+#body .gallery span {
+  display: block;
+  width: 105px;
+  position: absolute;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  bottom: 0;
+}
+
+#body .gallery a:hover span {
+  background: rgba(148, 44, 44, 0.7);
+}
+
+/* #footer */
+
+#footer {
+	font-size: 14px;
+}

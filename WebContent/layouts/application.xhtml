@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+	  <title><ui:insert name="title">canchita.pe</ui:insert></title>
+	  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css' />
+    <h:outputStylesheet name="styles.css" library="css" />
+    <ui:insert name="stylesheets"></ui:insert>
+    <ui:insert name="javascripts"></ui:insert>
+	</h:head>
+	<body>
+	  <div id="header">
+	    <ui:insert name="header">
+	    	<h1>
+		      <h:graphicImage name="icon.png" library="images" />
+		      canchita.pe
+		    </h1>
+	    	<!-- <ui:include src="header.xhtml"/> -->
+	    </ui:insert>
+	  </div>
+	  <div id="nav">
+	    <ui:insert name="nav">
+		    <a href="#">Inicio</a>
+		    <a href="#">En cartelera</a>
+		    <a href="#" class="nav-right">Mis tickets</a>
+	    </ui:insert>
+	  </div>
+	  <div id="body">
+		  <ui:insert name="body">
+		    Content area.  See comments below this line in the source.
+		  </ui:insert>
+		</div>
+		<div id="footer">
+	    <ui:insert name="footer">
+	    	© canchita.pe - 2012
+	    </ui:insert>
+	  </div>
+	</body>
+</html>

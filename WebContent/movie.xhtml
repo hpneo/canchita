@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<ui:composition template="layouts/application.xhtml">
+		<ui:define name="body">
+      <div class="container">
+        <div class="column poster">
+          <h:outputText value="#{movieBean.movie.name}" />
+          <h:graphicImage name="#{movieBean.movie.poster}" library="images/posters" />
+        </div>
+        <div class="column info"></div>
+      </div>
+		</ui:define>
+	</ui:composition>
+</html>
