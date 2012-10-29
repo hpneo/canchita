@@ -15,14 +15,8 @@ public class Schedule implements Serializable {
   private int id;
   private Movie movie;
   @OneToMany(mappedBy="schedule")
-  private List<ScheduleItem> schedule_items;
-  
-  public Schedule() {
-//    GregorianCalendar calendar = new GregorianCalendar();
-//    calendar.set(Calendar.HOUR, 4);
-//    calendar.set(Calendar.AM_PM, Calendar.PM);
-//    calendar.set(Calendar.MINUTE, 30);
-  }
+  @JoinColumn(name="schedule_items")
+  private List<ScheduleItem> scheduleItems;
 
   public int getId() {
     return id;
@@ -36,11 +30,11 @@ public class Schedule implements Serializable {
   public void setMovie(Movie movie) {
     this.movie = movie;
   }
-  public List<ScheduleItem> getSchedule_items() {
-    return schedule_items;
+  public List<ScheduleItem> getScheduleItems() {
+    return scheduleItems;
   }
-  public void setSchedule_items(List<ScheduleItem> schedule_items) {
-    this.schedule_items = schedule_items;
+  public void setSchedule_items(List<ScheduleItem> scheduleItems) {
+    this.scheduleItems = scheduleItems;
   }
   public static long getSerialversionuid() {
     return serialVersionUID;

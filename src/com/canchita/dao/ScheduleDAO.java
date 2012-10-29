@@ -48,7 +48,7 @@ public class ScheduleDAO implements ModelDAO<Schedule> {
   public Schedule update(Schedule record) {
     Schedule schedule = this.find(record.getId());
     schedule.setMovie(record.getMovie());
-    schedule.setSchedule_items(record.getSchedule_items());
+    schedule.setSchedule_items(record.getScheduleItems());
     
     this.em.getTransaction().begin();
     this.em.merge(schedule);

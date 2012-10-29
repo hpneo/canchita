@@ -19,6 +19,8 @@ public class MovieBean implements Serializable {
   @ManagedProperty("#{param.id}")
   private int id;
   private Movie movie;
+  private Schedule currentSchedule;
+  private ScheduleItem scheduleItem;
   
   public String buyTicket() {
     Cookie cookie = this.findCookie("current_user");
@@ -27,6 +29,9 @@ public class MovieBean implements Serializable {
       return "auth?faces-redirect=true";
     }
     else {
+      TicketDAO ticketDAO = new TicketDAO();
+      Ticket ticket = new Ticket();
+      
       return "";
     }
   }
@@ -37,6 +42,7 @@ public class MovieBean implements Serializable {
   public void setId(int id) {
     this.id = id;
   }
+  
   public Movie getMovie() {
     MovieDAO movieDAO = new MovieDAO();
     this.movie = movieDAO.find(this.id);
@@ -46,6 +52,24 @@ public class MovieBean implements Serializable {
   public void setMovie(Movie movie) {
     this.movie = movie;
   }
+  
+  public Schedule getCurrentSchedule() {
+    if(this.movie.getSchedules().isEmpty()) {
+      return null;
+    }
+    else {
+      return this.movie.getSchedules().get(this.movie.getSchedules().size() - 1);
+    }
+  }
+
+  public ScheduleItem getScheduleItem() {
+    return scheduleItem;
+  }
+
+  public void setScheduleItem(ScheduleItem scheduleItem) {
+    this.scheduleItem = scheduleItem;
+  }
+  
   public static long getSerialversionuid() {
     return serialVersionUID;
   }

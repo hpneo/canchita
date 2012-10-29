@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+  <ui:composition template="layouts/application.xhtml">
+    <ui:define name="body">
+      <div class="container" id="register">
+        <h:form class="session">
+          <h:outputText value="#{registerBean.message}" class="message validate-#{registerBean.status}" rendered="#{registerBean.status ne ''}" />
+          <p>
+            <h:outputLabel for="user_name" value="Nombre:" />
+            <h:message for="user_name" class="validate-error" />
+            <h:inputText id="user_name" value="#{registerBean.name}" class="string" label="Nombre">
+              <f:validateRequired  />
+            </h:inputText>
+          </p>
+          <p>
+            <h:outputLabel for="user_email" value="Email:" />
+            <h:message for="user_email" class="validate-error" />
+            <h:inputText id="user_email" value="#{registerBean.email}" class="string" label="Email">
+              <f:validateRequired  />
+            </h:inputText>
+          </p>
+          <p>
+            <h:outputLabel for="user_password" value="Password" />
+            <h:message for="user_password" class="validate-error" />
+            <h:inputSecret id="user_password" value="#{registerBean.password}" class="string" label="Password">
+              <f:validateRequired />
+            </h:inputSecret>
+          </p>
+          <p>
+            <h:commandButton value="Registrarse" action="#{registerBean.register}" class="button" />
+          </p>
+          <h:outputLink value="auth.jsf" class="link">Iniciar sesión</h:outputLink>
+        </h:form>
+      </div>
+    </ui:define>
+  </ui:composition>
+</html>

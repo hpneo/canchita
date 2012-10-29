@@ -7,33 +7,35 @@ import com.canchita.dao.*;
 import com.canchita.models.*;
 
 import javax.faces.bean.*;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.faces.context.*;
+import javax.servlet.http.*;
 
 @ManagedBean
 @RequestScoped
-public class AuthBean implements Serializable {
+public class RegisterBean implements Serializable {
   private static final long serialVersionUID = 1L;
-  
+
+  private String name;
   private String email;
   private String password;
   private String message;
   private String status = "";
   
-  public String auth() {
+  public String register() {
     UserDAO userDAO = new UserDAO();
     
-    Map<String,String> parameters = new HashMap<String,String>();
-    parameters.put("email", this.email);
-    parameters.put("password", this.password);
+    User user = new User();
     
-    User user = userDAO.find_by(parameters);
+    user.setName(this.name);
+    user.setEmail(this.email);
+    user.setPassword(this.password);
     
-    if(user == null) {
-      this.message = "Email y/o contraseña incorrectos";
+    User registered_user = userDAO.create(user);
+    
+    if(registered_user.getId() == 0) {
+      this.message = "Datos incorrectos en el registro";
       this.status = "error";
+      
       return null;
     }
     else {
@@ -41,12 +43,20 @@ public class AuthBean implements Serializable {
       this.getResponse().addCookie(cookie);
       
       System.out.println(this.findCookie("current_user"));
+      
       this.message = "Bienvenido " + user.getName();
       this.status = "success";
+      
       return "index?faces-redirect=true";
     }
   }
   
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
   public String getEmail() {
     return email;
   }

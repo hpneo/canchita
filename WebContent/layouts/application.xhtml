@@ -23,7 +23,7 @@
 	    <ui:insert name="nav">
 	      <h:outputLink value="#{facesContext.externalContext.requestContextPath}">Inicio</h:outputLink>
 		    <a href="#">En cartelera</a>
-		    <a href="#" class="nav-right">Mis tickets</a>
+        <h:outputLink value="my_tickets.xhtml" class="nav-right" rendered="#{applicationBean.currentUser ne null}">Mis tickets</h:outputLink>
 	    </ui:insert>
 	  </div>
 	  <div id="body">

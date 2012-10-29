@@ -7,6 +7,10 @@ import com.canchita.dao.*;
 import com.canchita.models.*;
 
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @ManagedBean
 @SessionScoped
@@ -14,6 +18,7 @@ public class ApplicationBean implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private List<Movie> lastMovies;
+  private User currentUser;
 
   public List<Movie> getLastMovies() {
     MovieDAO movieDAO = new MovieDAO();
@@ -22,5 +27,35 @@ public class ApplicationBean implements Serializable {
   }
   public void setLastMovies(List<Movie> lastMovies) {
     this.lastMovies = lastMovies;
+  }
+  public User getCurrentUser() {
+    this.currentUser = null;
+    if(this.findCookie("current_user") != null) {
+      UserDAO userDAO = new UserDAO();
+      this.currentUser = userDAO.find(new Integer(this.findCookie("current_user").getValue()).intValue());
+    }
+    return this.currentUser;
+  }
+  public void setCurrentUser(User currentUser) {
+    this.currentUser = currentUser;
+  }
+  
+  private HttpServletRequest getRequest() {
+    return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+  }
+  
+  private HttpServletResponse getResponse() {
+    return (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();
+  }
+  
+  private Cookie findCookie(String cookieName) {
+    Cookie cookie = null;
+    Cookie[] cookies = this.getRequest().getCookies();
+    for(int i = 0; i < cookies.length; i++) {
+      if(cookies[i].getName().equals(cookieName)) {
+        cookie = cookies[i];
+      }
+    }
+    return cookie;
   }
 }

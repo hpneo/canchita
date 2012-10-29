@@ -9,17 +9,17 @@
 	<ui:composition template="layouts/application.xhtml">
 		<ui:define name="body">
 		  <div class="container" id="auth">
-			  <h:form>
-			    <h:outputText value="#{authBean.message}" class="message validate-#{authBean.status}" rendered="#{not authBean.status ne ''}" />
+			  <h:form class="session">
+			    <h:outputText value="#{authBean.message}" class="message validate-#{authBean.status}" rendered="#{authBean.status ne ''}" />
 	        <p>
-	          <label for="user_email">Email:</label>
+	          <h:outputLabel for="user_email" value="Email:" />
             <h:message for="user_email" class="validate-error" />
 	          <h:inputText id="user_email" value="#{authBean.email}" class="string" label="Email">
               <f:validateRequired  />
 	          </h:inputText>
 	        </p>
 	        <p>
-	          <label for="user_password">Password:</label>
+	          <h:outputLabel for="user_password" value="Password" />
             <h:message for="user_password" class="validate-error" />
 	          <h:inputSecret id="user_password" value="#{authBean.password}" class="string" label="Password">
               <f:validateRequired />
@@ -28,6 +28,7 @@
 	        <p>
 	          <h:commandButton value="Entrar" action="#{authBean.auth}" class="button" />
 	        </p>
+	        <h:outputLink value="register.jsf" class="link">Regístrate</h:outputLink>
 			  </h:form>
 		  </div>
 		</ui:define>

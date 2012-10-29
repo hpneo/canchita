@@ -19,6 +19,36 @@ a {
   text-decoration: none;
 }
 
+form label {
+  display: inline-block;
+  min-width: 70px;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-weight: 900;
+}
+
+form input.string {
+  border: solid 1px #fff;
+  padding: 4px;
+  border-radius: 2px;
+  margin-left: 6px;
+}
+
+form select.big {
+  font-size: 15px;
+  padding: 4px;
+}
+
+form.session {
+  display: block;
+  width: 30%;
+  margin: 20px auto;
+}
+
+.link {
+	font-size: 14px;
+}
+
 .validate-error {
   font-size: 13px;
   background: #942c2c;
@@ -209,25 +239,4 @@ a {
 
 #movie .column.poster img {
 	width: 100%;
-}
-
-/* #auth */
-
-#auth form {
-	display: block;
-	width: 30%;
-	margin: 20px auto;
-}
-
-#auth form label {
-	text-transform: lowercase;
-	font-variant: small-caps;
-	font-weight: 900;
-}
-
-#auth form input.string {
-	border: solid 1px #fff;
-	padding: 4px;
-	border-radius: 2px;
-	margin-left: 6px;
 }

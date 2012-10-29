@@ -19,7 +19,14 @@
             <h:outputText value="#{movieBean.movie.description}" />
           </p>
           <h:form>
-            <h:commandButton value="Comprar tickets" action="#{movieBean.buyTicket}" class="button" />
+            <p>
+              <h:selectOneMenu value="#{movieBean.scheduleItem}" class="big">
+                <f:selectItems value="#{movieBean.currentSchedule.scheduleItems}" var="scheduleItem" itemValue="#{scheduleItem.id}" />
+              </h:selectOneMenu>
+            </p>
+            <p>
+              <h:commandButton value="Comprar tickets" action="#{movieBean.buyTicket}" class="button" />
+            </p>
           </h:form>
         </div>
       </div>

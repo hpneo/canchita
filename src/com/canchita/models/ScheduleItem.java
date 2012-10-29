@@ -1,6 +1,9 @@
 package com.canchita.models;
 
 import java.io.Serializable;
+import java.math.*;
+import java.text.*;
+import java.util.*;
 import java.sql.Time;
 
 import javax.persistence.*;
@@ -9,6 +12,8 @@ import javax.persistence.*;
 @Table(name = "schedule_items")
 public class ScheduleItem implements Serializable {
   private static final long serialVersionUID = 1L;
+  
+  public static final String DAYS[] = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
 
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -59,5 +64,19 @@ public class ScheduleItem implements Serializable {
   }
   public static long getSerialversionuid() {
     return serialVersionUID;
+  }
+  
+  public String toString() {
+    GregorianCalendar calendar = new GregorianCalendar();
+    calendar.setFirstDayOfWeek(Calendar.MONDAY);
+    
+    SimpleDateFormat sdf_time = new SimpleDateFormat("h:m a");
+    
+    float price = this.price;
+    
+    BigDecimal formattedPrice = new BigDecimal(price);
+    formattedPrice = formattedPrice.setScale(2);
+    
+    return ScheduleItem.DAYS[this.day - 1] + " - " + sdf_time.format(this.start_at) + " : S/." + formattedPrice;
   }
 }
