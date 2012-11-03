@@ -5,6 +5,7 @@ import java.math.*;
 import java.text.*;
 import java.util.*;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 
@@ -75,6 +76,10 @@ public class ScheduleItem implements Serializable {
   }
   public static long getSerialversionuid() {
     return serialVersionUID;
+  }
+  
+  public String getCode() {
+    return this.getId() + "" + this.getStart_at().getTime();
   }
   
   public String getLabel() {

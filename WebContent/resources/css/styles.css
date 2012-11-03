@@ -207,14 +207,38 @@ form.session {
   background: rgba(148, 44, 44, 0.7);
 }
 
+#body .gallery .ticket {
+	background: #f3f3f3;
+	color: #111;
+	font-size: 1.2em;
+	border-radius: 3px;
+}
+
 #body .gallery .ticket .poster,
-#body .gallery .ticket .info {
+#body .gallery .ticket .info,
+#body .gallery .ticket .code {
   display: block;
   float: left;
 }
 
-#body .gallery .ticket .info {
+#body .gallery .ticket .info,
+#body .gallery .ticket .code {
 	padding: 5px;
+}
+
+#body .gallery .ticket .code small {
+	display: block;
+	background: #942C2C;
+  border-radius: 2px;
+  color: #f3f3f3;
+  font-size: 1em;
+  letter-spacing: 0.6em;
+  width: 0.6em;
+  word-wrap: break-word;
+  padding: 4px 2px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: 'Ubuntu Mono', 'Consolas', sans-serif;
 }
 
 /* #footer */
