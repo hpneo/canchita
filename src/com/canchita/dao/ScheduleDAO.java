@@ -27,10 +27,10 @@ public class ScheduleDAO implements ModelDAO<Schedule> {
   @Override
   public Schedule save(Schedule record) {
     if(record.getId() > 0) {
-      return this.create(record);
+      return this.update(record);
     }
     else {
-      return this.update(record);
+      return this.create(record);
     }
   }
 

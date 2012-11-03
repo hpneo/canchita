@@ -51,9 +51,11 @@ public class ApplicationBean implements Serializable {
   private Cookie findCookie(String cookieName) {
     Cookie cookie = null;
     Cookie[] cookies = this.getRequest().getCookies();
-    for(int i = 0; i < cookies.length; i++) {
-      if(cookies[i].getName().equals(cookieName)) {
-        cookie = cookies[i];
+    if(cookies != null) {
+      for(int i = 0; i < cookies.length; i++) {
+        if(cookies[i].getName().equals(cookieName)) {
+          cookie = cookies[i];
+        }
       }
     }
     return cookie;

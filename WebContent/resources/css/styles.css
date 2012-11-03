@@ -180,23 +180,41 @@ form.session {
   margin: 5px;
 }
 
-#body .gallery img {
+#body .gallery .movie img {
   display: block;
   width: 115px;
   position: relative;
 }
 
-#body .gallery span {
+#body .gallery .movie span {
   display: block;
   width: 105px;
   position: absolute;
   padding: 5px;
   background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+#body .gallery .movie span.movie_title {
+  top: 0;
+}
+
+#body .gallery .movie span.start_at {
   bottom: 0;
 }
 
-#body .gallery a:hover span {
+#body .gallery .movie a:hover span {
   background: rgba(148, 44, 44, 0.7);
+}
+
+#body .gallery .ticket .poster,
+#body .gallery .ticket .info {
+  display: block;
+  float: left;
+}
+
+#body .gallery .ticket .info {
+	padding: 5px;
 }
 
 /* #footer */

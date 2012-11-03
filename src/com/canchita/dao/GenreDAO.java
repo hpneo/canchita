@@ -27,10 +27,10 @@ public class GenreDAO implements ModelDAO<Genre> {
   @Override
   public Genre save(Genre record) {
     if(record.getId() > 0) {
-      return this.create(record);
+      return this.update(record);
     }
     else {
-      return this.update(record);
+      return this.create(record);
     }
   }
   

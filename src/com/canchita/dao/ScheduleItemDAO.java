@@ -1,31 +1,31 @@
 package com.canchita.dao;
 
-import java.util.*;
+import java.util.List;
 import com.canchita.models.*;
 
 import javax.persistence.*;
 
-public class TicketDAO implements ModelDAO<Ticket> {
-  
+public class ScheduleItemDAO implements ModelDAO<ScheduleItem> {
+
   private EntityManager em = null;
   
-  public TicketDAO() {
+  public ScheduleItemDAO() {
     this.em = this.createEntityManager();
   }
-
+  
   @Override
-  public Ticket find(int id) {
-    return this.em.find(Ticket.class, id);
+  public ScheduleItem find(int id) {
+    return this.em.find(ScheduleItem.class, id);
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public List<Ticket> list() {
-    return this.em.createQuery("SELECT t FROM TICKET t").getResultList();
+  public List<ScheduleItem> list() {
+    return this.em.createQuery("SELECT si FROM SCHEDULE_ITEM si").getResultList();
   }
 
   @Override
-  public Ticket save(Ticket record) {
+  public ScheduleItem save(ScheduleItem record) {
     if(record.getId() > 0) {
       return this.update(record);
     }
@@ -35,7 +35,7 @@ public class TicketDAO implements ModelDAO<Ticket> {
   }
 
   @Override
-  public Ticket create(Ticket record) {
+  public ScheduleItem create(ScheduleItem record) {
     this.em.getTransaction().begin();
     this.em.persist(record);
     this.em.flush();
@@ -45,21 +45,23 @@ public class TicketDAO implements ModelDAO<Ticket> {
   }
 
   @Override
-  public Ticket update(Ticket record) {
-    Ticket ticket = this.find(record.getId());
-    ticket.setQuantity(record.getQuantity());
-    ticket.setScheduleItem(record.getScheduleItem());
+  public ScheduleItem update(ScheduleItem record) {
+    ScheduleItem schedule_item = new ScheduleItem();
+    schedule_item.setDay(record.getDay());
+    schedule_item.setDuration(record.getDuration());
+    schedule_item.setPrice(record.getPrice());
+    schedule_item.setStart_at(record.getStart_at());
     
     this.em.getTransaction().begin();
-    this.em.merge(ticket);
+    this.em.merge(schedule_item);
     this.em.flush();
     this.em.getTransaction().commit();
     
-    return ticket;
+    return schedule_item;
   }
 
   @Override
-  public void delete(Ticket record) {
+  public void delete(ScheduleItem record) {
     this.em.getTransaction().begin();
     this.em.remove(record);
     this.em.flush();
@@ -74,4 +76,5 @@ public class TicketDAO implements ModelDAO<Ticket> {
     
     return this.em;
   }
+
 }

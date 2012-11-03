@@ -27,10 +27,10 @@ public class MovieDAO implements ModelDAO<Movie> {
   @Override
   public Movie save(Movie record) {
     if(record.getId() > 0) {
-      return this.create(record);
+      return this.update(record);
     }
     else {
-      return this.update(record);
+      return this.create(record);
     }
   }
   

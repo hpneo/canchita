@@ -26,6 +26,17 @@ public class ScheduleItem implements Serializable {
   private int duration;
   private float price;
   
+  @Override
+  public boolean equals(Object obj) {
+    System.out.println("equals");
+    if (obj instanceof ScheduleItem) {
+      return ((ScheduleItem)obj).getId() == this.getId();
+    }
+    else {
+      return false;
+    }
+  }
+  
   public int getId() {
     return id;
   }
@@ -66,11 +77,11 @@ public class ScheduleItem implements Serializable {
     return serialVersionUID;
   }
   
-  public String toString() {
+  public String getLabel() {
     GregorianCalendar calendar = new GregorianCalendar();
     calendar.setFirstDayOfWeek(Calendar.MONDAY);
     
-    SimpleDateFormat sdf_time = new SimpleDateFormat("h:m a");
+    SimpleDateFormat sdf_time = new SimpleDateFormat("hh:mm a");
     
     float price = this.price;
     

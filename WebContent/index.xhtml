@@ -21,7 +21,7 @@
 	         <h:outputLink value="movie.xhtml">
 	           <f:param name="id" value="#{movie.id}" />
 	           <h:graphicImage name="#{movie.poster}" library="images/posters" />
-	           <span><h:outputText value="#{movie.name}" /></span>
+	           <span class="movie_title"><h:outputText value="#{movie.name}" /></span>
 	         </h:outputLink>
 	       </li>
 	     </ui:repeat>

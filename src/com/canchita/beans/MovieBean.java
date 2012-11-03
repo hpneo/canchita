@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import com.canchita.dao.*;
 import com.canchita.models.*;
+import com.canchita.converters.*;
 
 import javax.faces.bean.*;
 import javax.faces.context.*;
+import javax.faces.convert.Converter;
 import javax.servlet.http.*;
 
 @ManagedBean
@@ -31,8 +33,18 @@ public class MovieBean implements Serializable {
     else {
       TicketDAO ticketDAO = new TicketDAO();
       Ticket ticket = new Ticket();
+      ticket.setScheduleItem(this.scheduleItem);
+      ticket.setQuantity(1);
+      ticket.setUser(new ApplicationBean().getCurrentUser());
       
-      return "";
+      ticket = ticketDAO.create(ticket);
+      
+      System.out.println("buyTicket=======================================");
+      System.out.println(ticket);
+      System.out.println(this.scheduleItem);
+      System.out.println("================================================");
+      
+      return "my_tickets?faces-redirect=true";
     }
   }
   
@@ -54,7 +66,7 @@ public class MovieBean implements Serializable {
   }
   
   public Schedule getCurrentSchedule() {
-    if(this.movie.getSchedules().isEmpty()) {
+    if(this.getMovie().getSchedules().isEmpty()) {
       return null;
     }
     else {
@@ -65,13 +77,13 @@ public class MovieBean implements Serializable {
   public ScheduleItem getScheduleItem() {
     return scheduleItem;
   }
-
+  
   public void setScheduleItem(ScheduleItem scheduleItem) {
     this.scheduleItem = scheduleItem;
   }
-  
-  public static long getSerialversionuid() {
-    return serialVersionUID;
+
+  public Converter getScheduleItemConverter() {
+    return new ScheduleItemConverter(this.getCurrentSchedule().getScheduleItems());
   }
   
   private HttpServletRequest getRequest() {
