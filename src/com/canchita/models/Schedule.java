@@ -14,7 +14,7 @@ public class Schedule implements Serializable {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private int id;
   private Movie movie;
-  @OneToMany(mappedBy="schedule")
+  @OneToMany(mappedBy="schedule", fetch=FetchType.LAZY)
   @JoinColumn(name="schedule_items")
   private List<ScheduleItem> scheduleItems;
 

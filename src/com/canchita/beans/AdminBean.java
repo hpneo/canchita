@@ -18,6 +18,7 @@ public class AdminBean implements Serializable {
   private static final long serialVersionUID = 1L;
   
   private List<Movie> movies;
+  private List<Schedule> schedules;
   private List<User> users;
   
   public List<Movie> getMovies() {
@@ -30,6 +31,16 @@ public class AdminBean implements Serializable {
     this.movies = movies;
   }
   
+  public List<Schedule> getSchedules() {
+    ScheduleDAO scheduleDAO = new ScheduleDAO();
+    this.schedules = scheduleDAO.list();
+    return this.schedules;
+  }
+
+  public void setSchedules(List<Schedule> schedules) {
+    this.schedules = schedules;
+  }
+
   public List<User> getUsers() {
     UserDAO userDAO = new UserDAO();
     this.users = userDAO.list();
