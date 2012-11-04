@@ -2,11 +2,12 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   -webkit-text-stroke: 0.001px transparent;
   font-size: 1.2em;
-  /*background: url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/navy_blue.png');
-  background: url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png');
+  /*
   background: url('http://subtlepatterns.com/patterns/dark_leather.png');
-  background: url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/subtle_carbon.png');*/
-  background: url('background.png.xhtml?ln=images');
+  background: url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png');
+  background: url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/subtle_carbon.png');
+  */
+  background: url('admin-background.png.xhtml?ln=images');
   color: #fff;
 }
 
@@ -47,6 +48,38 @@ form.session {
   display: block;
   width: 30%;
   margin: 20px auto;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	min-width: 100%;
+}
+
+table .table_header {
+  text-transform: lowercase;
+  font-variant: small-caps;
+  border-bottom: solid 1px #212121;
+}
+
+table tbody {
+  border-radius: 2px;
+}
+
+table tbody tr.even {
+	background: #313131;
+}
+
+table tbody tr.odd {
+	background: #3a3a3a;
+}
+
+table tbody tr:hover {
+	background: #444444;
+}
+
+table td {
+	padding: 5px 10px;
 }
 
 .link {
@@ -127,7 +160,7 @@ form.session {
   text-shadow: 1px 1px 0px #000;
 }
 #nav a:hover {
-  background: #942c2c;
+  background: #2c3f94;
   color: #faefef;
 }
 

@@ -1,6 +1,7 @@
 package com.canchita.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import com.canchita.dao.*;
 import com.canchita.models.*;
@@ -83,7 +84,12 @@ public class MovieBean implements Serializable {
   }
 
   public Converter getScheduleItemConverter() {
-    return new ScheduleItemConverter(this.getCurrentSchedule().getScheduleItems());
+    if(this.getCurrentSchedule() == null) {
+      return new ScheduleItemConverter(new ArrayList<ScheduleItem>());
+    }
+    else {
+      return new ScheduleItemConverter(this.getCurrentSchedule().getScheduleItems());
+    }
   }
   
   private HttpServletRequest getRequest() {

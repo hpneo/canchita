@@ -4,9 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:head>
-	  <title><ui:insert name="title">canchita.pe</ui:insert></title>
+	  <title><ui:insert name="title">canchita.pe - admin</ui:insert></title>
 	  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css' />
-    <h:outputStylesheet name="styles.css" library="css" />
+    <h:outputStylesheet name="admin.css" library="css" />
     <ui:insert name="stylesheets"></ui:insert>
     <ui:insert name="javascripts"></ui:insert>
 	</h:head>
@@ -16,17 +16,18 @@
 	    	<h1>
 	    	  <h:outputLink value="#{facesContext.externalContext.requestContextPath}">
 			      <h:graphicImage name="icon.png" library="images" />
-			      canchita.pe
+			      admin
 		      </h:outputLink>
 		    </h1>
 	    </ui:insert>
 	  </div>
 	  <div id="nav">
 	    <ui:insert name="nav">
-	      <h:outputLink value="#{facesContext.externalContext.requestContextPath}">Inicio</h:outputLink>
-		    <a href="#">En cartelera</a>
-        <h:outputLink value="auth.xhtml" class="nav-right" rendered="#{empty applicationBean.currentUser}">Iniciar sesión</h:outputLink>
-        <h:outputLink value="my_tickets.xhtml" class="nav-right" rendered="#{applicationBean.currentUser ne null}">Mis tickets</h:outputLink>
+        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/admin">Admin</h:outputLink>
+        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/admin/movies.xhtml">Películas</h:outputLink>
+        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/admin/schedules.xhtml">Horarios</h:outputLink>
+        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/admin/users.xhtml">Usuarios</h:outputLink>
+        <h:outputLink value="#{facesContext.externalContext.requestContextPath}" class="nav-right">Ir al sitio</h:outputLink>
 	    </ui:insert>
 	  </div>
 	  <div id="body">

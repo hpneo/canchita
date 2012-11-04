@@ -47,7 +47,6 @@ public class ScheduleItemDAO implements ModelDAO<ScheduleItem> {
   @Override
   public ScheduleItem update(ScheduleItem record) {
     ScheduleItem schedule_item = new ScheduleItem();
-    schedule_item.setDay(record.getDay());
     schedule_item.setDuration(record.getDuration());
     schedule_item.setPrice(record.getPrice());
     schedule_item.setStart_at(record.getStart_at());

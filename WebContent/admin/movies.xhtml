@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+  <ui:composition template="../layouts/admin.xhtml">
+    <ui:define name="body">
+      <h2>Películas</h2>
+      <h:dataTable var="movie" value="#{adminBean.movies}" headerClass="table_header" rowClasses="even,odd">
+        <h:column>
+          <f:facet name="header">Título</f:facet>
+          #{movie.name}
+        </h:column>
+        <h:column>
+          <f:facet name="header">Género</f:facet>
+          #{movie.genre.name}
+        </h:column>
+        <h:column>
+          <f:facet name="header">Rating</f:facet>
+          #{movie.rating}
+        </h:column>
+        <h:column>
+          <f:facet name="header">Acciones</f:facet>
+        </h:column>
+      </h:dataTable>
+    </ui:define>
+  </ui:composition>
+</html>

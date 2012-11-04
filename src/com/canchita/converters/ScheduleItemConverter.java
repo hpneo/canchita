@@ -1,5 +1,6 @@
 package com.canchita.converters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -13,7 +14,12 @@ public class ScheduleItemConverter implements Converter {
   private List<ScheduleItem> scheduleItems;
   
   public ScheduleItemConverter(List<ScheduleItem> scheduleItems) {
-    this.scheduleItems = scheduleItems;
+    if(scheduleItems != null) {
+      this.scheduleItems = scheduleItems;
+    }
+    else {
+      this.scheduleItems = new ArrayList<ScheduleItem>();
+    }
   }
 
   @Override

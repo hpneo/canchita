@@ -18,7 +18,7 @@
           <p>
             <h:outputText value="#{movieBean.movie.description}" />
           </p>
-          <h:form>
+          <h:form rendered="#{movieBean.currentSchedule.scheduleItems ne null}">
             <p>
               <h:selectOneMenu value="#{movieBean.scheduleItem}" converter="#{movieBean.scheduleItemConverter}" class="big">
                 <f:selectItems value="#{movieBean.currentSchedule.scheduleItems}" var="scheduleItem" itemValue="#{scheduleItem}" itemLabel="#{scheduleItem.label}" />

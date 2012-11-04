@@ -22,8 +22,8 @@ public class ScheduleItem implements Serializable {
   @ManyToOne
   @JoinColumn(name="schedule_id")
   private Schedule schedule;
-  private int day;
-  private Time start_at;
+  @Temporal(value=TemporalType.TIMESTAMP)
+  private Date start_at;
   private int duration;
   private float price;
   
@@ -50,16 +50,10 @@ public class ScheduleItem implements Serializable {
   public void setSchedule(Schedule schedule) {
     this.schedule = schedule;
   }
-  public int getDay() {
-    return day;
-  }
-  public void setDay(int day) {
-    this.day = day;
-  }
-  public Time getStart_at() {
+  public Date getStart_at() {
     return start_at;
   }
-  public void setStart_at(Time start_at) {
+  public void setStart_at(Date start_at) {
     this.start_at = start_at;
   }
   public int getDuration() {
@@ -74,25 +68,23 @@ public class ScheduleItem implements Serializable {
   public void setPrice(float price) {
     this.price = price;
   }
-  public static long getSerialversionuid() {
-    return serialVersionUID;
-  }
   
   public String getCode() {
-    return this.getId() + "" + this.getStart_at().getTime();
+    String code = String.valueOf(this.getId() + "" + this.getStart_at().getTime());
+    return code.substring(0, 9);
   }
   
   public String getLabel() {
     GregorianCalendar calendar = new GregorianCalendar();
     calendar.setFirstDayOfWeek(Calendar.MONDAY);
     
-    SimpleDateFormat sdf_time = new SimpleDateFormat("hh:mm a");
+    SimpleDateFormat sdf_time = new SimpleDateFormat("EEEE dd/MM/yyyy - hh:mm a");
     
     float price = this.price;
     
     BigDecimal formattedPrice = new BigDecimal(price);
     formattedPrice = formattedPrice.setScale(2);
     
-    return ScheduleItem.DAYS[this.day - 1] + " - " + sdf_time.format(this.start_at) + " : S/." + formattedPrice;
+    return sdf_time.format(this.start_at) + " : S/." + formattedPrice;
   }
 }
