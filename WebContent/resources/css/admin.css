@@ -74,7 +74,7 @@ table tbody tr.odd {
 	background: #3a3a3a;
 }
 
-table tbody tr:hover {
+table:not(.parent) tbody tr:hover {
 	background: #444444;
 }
 
@@ -118,6 +118,11 @@ table td {
   text-transform: lowercase;
   font-variant: small-caps;
   border-radius: 3px;
+}
+
+.button.mini {
+	font-size: 16px;
+  padding: 3px 9px;
 }
 
 #header,

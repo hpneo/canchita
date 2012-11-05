@@ -44,7 +44,9 @@ public class Ticket implements Serializable {
   public void setQuantity(int quantity) {
     this.quantity = quantity;
   }
-  public static long getSerialversionuid() {
-    return serialVersionUID;
+  
+  public String getCode() {
+    String code = String.valueOf(this.getId() + "" + this.scheduleItem.getStart_at().getTime());
+    return code.substring(0, 9);
   }
 }

@@ -69,11 +69,6 @@ public class ScheduleItem implements Serializable {
     this.price = price;
   }
   
-  public String getCode() {
-    String code = String.valueOf(this.getId() + "" + this.getStart_at().getTime());
-    return code.substring(0, 9);
-  }
-  
   public String getLabel() {
     GregorianCalendar calendar = new GregorianCalendar();
     calendar.setFirstDayOfWeek(Calendar.MONDAY);

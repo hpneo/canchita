@@ -14,7 +14,7 @@
 	        <ui:repeat value="#{applicationBean.currentUser.tickets}" var="ticket">
 	          <li class="ticket movie">
 	            <div class="code">
-                <small><h:outputText value="#{ticket.scheduleItem.code}" /></small>
+                <small><h:outputText value="#{ticket.code}" /></small>
 	            </div>
 	            <h:graphicImage name="#{ticket.scheduleItem.schedule.movie.poster}" library="images/posters" class="poster" />
 	            <div class="info">

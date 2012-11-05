@@ -7,26 +7,29 @@
       xmlns:fn="http://java.sun.com/jsp/jstl/functions">
   <ui:composition template="../layouts/admin.xhtml">
     <ui:define name="body">
-      <h2>Horarios</h2>
-      <h:dataTable value="#{adminBean.schedules}" var="schedule" headerClass="table_header" rowClasses="even,odd">
+      <h2>
+        <a href="admin/new_schedule.xhtml" class="button mini">Crear horario</a>
+        Horarios
+      </h2>
+      <h:dataTable value="#{adminBean.schedules}" var="schedule" styleClass="parent" headerClass="table_header" rowClasses="even,odd">
         <h:column>
           <f:facet name="header">Película</f:facet>
           #{schedule.movie.name}
         </h:column>
         <h:column>
           <f:facet name="header">Funciones</f:facet>
-          <h:dataTable value="#{schedule.scheduleItems}" var="scheduleItem" headerClass="table_header" rowClasses="even,odd">
-            <h:column>
-              <f:facet name="header">Código</f:facet>
-              #{scheduleItem.code}
-            </h:column>
+          <h:dataTable value="#{schedule.scheduleItems}" var="scheduleItem" headerClass="item table_header" rowClasses="even,odd">
             <h:column>
               <f:facet name="header">Fecha</f:facet>
-              #{scheduleItem.start_at}
+              <h:outputText value="#{scheduleItem.start_at}">
+                <f:convertDateTime pattern="EEEE dd/MM/yyyy - hh:mm a" timeZone="America/Lima" type="both" />
+              </h:outputText>
             </h:column>
             <h:column>
               <f:facet name="header">Precio</f:facet>
-              #{scheduleItem.price}
+              <h:outputText value="#{scheduleItem.price}">
+                <f:convertNumber currencySymbol="S/. " maxFractionDigits="2" groupingUsed="true" type="currency" locale="en_ES" />
+              </h:outputText>
             </h:column>
           </h:dataTable>
         </h:column>
