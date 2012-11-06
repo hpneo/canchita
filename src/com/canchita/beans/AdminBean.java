@@ -35,6 +35,10 @@ public class AdminBean implements Serializable {
   private Genre movieGenre;
   
   public String saveMovie() {
+    this.movie.setName(this.movieName);
+    this.movie.setDescription(this.movieDescription);
+    this.movie.setGenre(this.movieGenre);
+    
     if (this.movie.getId() == 0) {
       this.createMovie();
     }
@@ -42,7 +46,7 @@ public class AdminBean implements Serializable {
       this.updateMovie();
     }
     
-    return "admin/movies.xhtml?faces-redirect=true";
+    return "/admin/movies.xhtml?faces-redirect=true";
   }
   
   private void createMovie() {
@@ -55,10 +59,6 @@ public class AdminBean implements Serializable {
   private void updateMovie() {
     System.out.println("updateMovie =======================");
     MovieDAO movieDAO = new MovieDAO();
-    this.movie.setName(this.movieName);
-    this.movie.setDescription(this.movieDescription);
-    this.movie.setGenre(this.movieGenre);
-    System.out.println(this.movie.getName());
     movieDAO.update(this.movie);
     System.out.println("===================================");
   }
