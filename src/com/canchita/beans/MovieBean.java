@@ -92,6 +92,11 @@ public class MovieBean implements Serializable {
     }
   }
   
+  public Converter getGenreConverter() {
+    UtilsBean utilsBean = new UtilsBean();
+    return new GenreConverter(utilsBean.getGenres());
+  }
+  
   private HttpServletRequest getRequest() {
     return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
   }

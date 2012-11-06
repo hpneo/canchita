@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-@Entity(name = "GENRES")
+@Entity(name = "GENRE")
 @Table(name = "genres")
 public class Genre implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -13,6 +13,17 @@ public class Genre implements Serializable {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private int id;
   private String name;
+  
+  @Override
+  public boolean equals(Object obj) {
+    System.out.println("equals");
+    if (obj instanceof Genre) {
+      return ((Genre)obj).getId() == this.getId();
+    }
+    else {
+      return false;
+    }
+  }
   
   public int getId() {
     return id;
@@ -25,8 +36,5 @@ public class Genre implements Serializable {
   }
   public void setName(String name) {
     this.name = name;
-  }
-  public static long getSerialversionuid() {
-    return serialVersionUID;
   }
 }

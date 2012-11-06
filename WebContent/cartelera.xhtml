@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+  <ui:composition template="layouts/application.xhtml">
+    <ui:define name="body">
+      <h2>En cartelera</h2>
+      <ul class="gallery">
+        <ui:repeat value="#{applicationBean.lastMovies}" var="movie">
+          <li class="movie">
+            <h:outputLink value="movie.xhtml">
+              <f:param name="id" value="#{movie.id}" />
+              <h:graphicImage name="#{movie.poster}" library="images/posters" />
+              <span class="movie_title"><h:outputText value="#{movie.name}" /></span>
+            </h:outputLink>
+          </li>
+        </ui:repeat>
+      </ul>
+    </ui:define>
+  </ui:composition>
+</html>

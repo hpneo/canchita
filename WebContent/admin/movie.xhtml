@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+  <ui:composition template="../layouts/admin.xhtml">
+    <ui:define name="body">
+      <h2>Crear película</h2>
+      <h:form>
+        <p>
+          <h:outputLabel for="movie_name" value="Nombre:" />
+          <h:message for="movie_name" class="validate-error" />
+          <h:inputText id="movie_name" value="#{adminBean.movieName}" class="string" label="Nombre">
+            <f:validateRequired  />
+          </h:inputText>
+        </p>
+        <p>
+          <h:outputLabel for="movie_description" value="Descripción:" />
+          <h:inputTextarea id="movie_description" value="#{adminBean.movieDescription}" label="Descripción" />
+        </p>
+        <p>
+          <h:outputLabel for="movie_genre" value="Género:" />
+          <h:selectOneMenu id="movie_genre" value="#{adminBean.movieGenre}" converter="#{movieBean.genreConverter}" class="big" label="Género">
+            <f:selectItems value="#{utilsBean.genres}" var="genre" itemValue="#{genre}" itemLabel="#{genre.name}" />
+          </h:selectOneMenu>
+        </p>
+        <p>
+          <h:commandButton value="Crear película" action="#{adminBean.saveMovie}" class="button">
+            <f:param name="movie_id" value="#{adminBean.movie.id}" />
+          </h:commandButton>
+        </p>
+      </h:form>
+    </ui:define>
+  </ui:composition>
+</html>

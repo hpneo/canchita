@@ -1,7 +1,12 @@
 package com.canchita.beans;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
+
+import org.apache.commons.codec.binary.Hex;
 
 import com.canchita.dao.*;
 import com.canchita.models.*;
@@ -28,7 +33,7 @@ public class RegisterBean implements Serializable {
     
     user.setName(this.name);
     user.setEmail(this.email);
-    user.setPassword(this.password);
+    user.setPassword(UtilsBean.encryptPassword(this.password));
     
     User registered_user = userDAO.create(user);
     
@@ -100,4 +105,5 @@ public class RegisterBean implements Serializable {
     }
     return cookie;
   }
+
 }

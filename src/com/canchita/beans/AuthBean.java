@@ -27,7 +27,7 @@ public class AuthBean implements Serializable {
     
     Map<String,String> parameters = new HashMap<String,String>();
     parameters.put("email", this.email);
-    parameters.put("password", this.password);
+    parameters.put("password", UtilsBean.encryptPassword(this.password));
     
     User user = userDAO.find_by(parameters);
     

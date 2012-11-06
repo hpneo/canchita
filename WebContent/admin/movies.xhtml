@@ -8,7 +8,7 @@
   <ui:composition template="../layouts/admin.xhtml">
     <ui:define name="body">
       <h2>
-			<a href="admin/new_movie.xhtml" class="button mini">Crear película</a>
+			<h:outputLink value="#{facesContext.externalContext.requestContextPath}/admin/movie.xhtml" class="button mini">Crear película</h:outputLink>
 			Películas
       </h2>
       <h:dataTable var="movie" value="#{adminBean.movies}" headerClass="table_header" rowClasses="even,odd">
@@ -26,6 +26,10 @@
         </h:column>
         <h:column>
           <f:facet name="header">Acciones</f:facet>
+          <h:outputLink value="#{facesContext.externalContext.requestContextPath}/admin/movie.xhtml">
+            <f:param name="movie_id" value="#{movie.id}" />
+            Editar
+          </h:outputLink>
         </h:column>
       </h:dataTable>
     </ui:define>
