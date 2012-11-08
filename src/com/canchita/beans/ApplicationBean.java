@@ -21,13 +21,38 @@ public class ApplicationBean implements Serializable {
   private User currentUser;
 
   public List<Movie> getLastMovies() {
-    MovieDAO movieDAO = new MovieDAO();
-    this.lastMovies = movieDAO.list();
+    Date currentDate = new Date();
+    
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(currentDate);
+    
+    calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+    Date start_at = calendar.getTime();
+    
+    calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+    Date end_at = calendar.getTime();
+    
+    ScheduleDAO scheduleDAO = new ScheduleDAO();
+    
+    Map<String,Object> parameters = new HashMap<String,Object>();
+
+    parameters.put("start_at", start_at);
+    parameters.put("end_at", end_at);
+    
+    List<Schedule> schedules = scheduleDAO.query(parameters);
+    
+    this.lastMovies = new ArrayList<Movie>();
+    
+    for(int i = 0; i < schedules.size(); i++) {
+      this.lastMovies.add(schedules.get(i).getMovie());
+    }
+    
     return this.lastMovies;
   }
   public void setLastMovies(List<Movie> lastMovies) {
     this.lastMovies = lastMovies;
   }
+  
   public User getCurrentUser() {
     this.currentUser = null;
     if(this.findCookie("current_user") != null) {

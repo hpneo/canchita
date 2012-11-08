@@ -4,11 +4,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:p="http://primefaces.org/ui">
   <ui:composition template="../layouts/admin.xhtml">
     <ui:define name="body">
       <h2>Crear película</h2>
-      <h:form>
+      <h:form enctype="multipart/form-data">
         <p>
           <h:outputLabel for="movie_name" value="Nombre:" />
           <h:message for="movie_name" class="validate-error" />
@@ -27,9 +28,13 @@
           </h:selectOneMenu>
         </p>
         <p>
-          <h:commandButton value="Crear película" action="#{adminBean.saveMovie}" class="button">
+          <h:outputLabel for="movie_poster" value="Poster:" />
+          <p:fileUpload id="movie_poster" value="#{adminBean.moviePosterFile}" mode="simple" />
+        </p>
+        <p>
+          <p:commandButton value="Crear película" action="#{adminBean.saveMovie}" styleClass="button" ajax="false">
             <f:param name="movie_id" value="#{adminBean.movie.id}" />
-          </h:commandButton>
+          </p:commandButton>
         </p>
       </h:form>
     </ui:define>

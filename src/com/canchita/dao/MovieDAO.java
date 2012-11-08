@@ -1,6 +1,11 @@
 package com.canchita.dao;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import com.canchita.models.*;
 
 import javax.persistence.*;
@@ -67,6 +72,43 @@ public class MovieDAO implements ModelDAO<Movie> {
     this.em.getTransaction().commit();
     
     return movie;
+  }
+  
+  public List<Movie> query(Map<String,Object> attributes) {
+    String queryString = "SELECT m FROM MOVIE m";
+    
+    Set<Entry<String,Object>> parameters = attributes.entrySet();    
+    Iterator<Entry<String,Object>> iterator = parameters.iterator();
+    
+    StringBuilder sb = new StringBuilder();
+    boolean first = true;
+    while(iterator.hasNext()) {
+      Entry<String,Object> parameter = iterator.next();
+      
+      if (first)
+        first = false;
+      else
+        sb.append(" AND ");
+      
+      sb.append("m." + parameter.getKey() + " = :m" + parameter.getKey());
+    }
+    
+    queryString += " WHERE " + sb.toString();
+    
+    System.out.println(queryString);
+    
+    Query query = this.em.createQuery(queryString);
+    
+    iterator = parameters.iterator();
+    
+    while(iterator.hasNext()) {
+      Entry<String,Object> parameter = iterator.next();
+      query.setParameter("m" + parameter.getKey(), parameter.getValue());
+    }
+    
+    List<Movie> results = query.getResultList();
+    
+    return results;
   }
   
   private EntityManager createEntityManager() {

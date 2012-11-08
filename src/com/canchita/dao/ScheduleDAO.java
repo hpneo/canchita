@@ -1,6 +1,11 @@
 package com.canchita.dao;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import com.canchita.models.*;
 
 import javax.persistence.*;
@@ -48,7 +53,9 @@ public class ScheduleDAO implements ModelDAO<Schedule> {
   public Schedule update(Schedule record) {
     Schedule schedule = this.find(record.getId());
     schedule.setMovie(record.getMovie());
-    schedule.setSchedule_items(record.getScheduleItems());
+    schedule.setStart_at(record.getStart_at());
+    schedule.setEnd_at(record.getEnd_at());
+    schedule.setScheduleItems(record.getScheduleItems());
     
     this.em.getTransaction().begin();
     this.em.merge(schedule);
@@ -64,6 +71,43 @@ public class ScheduleDAO implements ModelDAO<Schedule> {
     this.em.remove(record);
     this.em.flush();
     this.em.getTransaction().commit();
+  }
+  
+  public List<Schedule> query(Map<String,Object> attributes) {
+    String queryString = "SELECT s FROM SCHEDULE s";
+    
+    Set<Entry<String,Object>> parameters = attributes.entrySet();    
+    Iterator<Entry<String,Object>> iterator = parameters.iterator();
+    
+    StringBuilder sb = new StringBuilder();
+    boolean first = true;
+    while(iterator.hasNext()) {
+      Entry<String,Object> parameter = iterator.next();
+      
+      if (first)
+        first = false;
+      else
+        sb.append(" AND ");
+      
+      sb.append("s." + parameter.getKey() + " = :s" + parameter.getKey());
+    }
+    
+    queryString += " WHERE " + sb.toString();
+    
+    System.out.println(queryString);
+    
+    Query query = this.em.createQuery(queryString);
+    
+    iterator = parameters.iterator();
+    
+    while(iterator.hasNext()) {
+      Entry<String,Object> parameter = iterator.next();
+      query.setParameter("s" + parameter.getKey(), parameter.getValue());
+    }
+    
+    List<Schedule> results = query.getResultList();
+    
+    return results;
   }
   
   private EntityManager createEntityManager() {

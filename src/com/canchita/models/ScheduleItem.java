@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.*;
 import java.text.*;
 import java.util.*;
-import java.sql.Time;
-import java.sql.Timestamp;
 
 import javax.persistence.*;
 

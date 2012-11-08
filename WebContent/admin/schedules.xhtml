@@ -17,6 +17,18 @@
           #{schedule.movie.name}
         </h:column>
         <h:column>
+          <f:facet name="header">Inicia</f:facet>
+          <h:outputText value="#{schedule.start_at}">
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Lima" type="both" />
+          </h:outputText>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Termina</f:facet>
+          <h:outputText value="#{schedule.end_at}">
+            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Lima" type="both" />
+          </h:outputText>
+        </h:column>
+        <h:column>
           <f:facet name="header">Funciones</f:facet>
           <h:dataTable value="#{schedule.scheduleItems}" var="scheduleItem" headerClass="item table_header" rowClasses="even,odd">
             <h:column>

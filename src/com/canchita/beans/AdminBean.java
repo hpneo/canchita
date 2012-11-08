@@ -1,5 +1,9 @@
 package com.canchita.beans;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.*;
 
@@ -12,11 +16,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
 @ManagedBean
 @SessionScoped
 @RequestScoped
 public class AdminBean implements Serializable {
   private static final long serialVersionUID = 1L;
+  
+  private UploadedFile moviePosterFile;
 
   @ManagedProperty("#{param.movie_id}")
   private int movieId;
@@ -34,10 +43,59 @@ public class AdminBean implements Serializable {
   private String movieDescription;
   private Genre movieGenre;
   
+  private void copyUploadedFile(UploadedFile uploadedFile) {
+    try {
+      File targetFolder = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/images/posters"));
+      
+      File destination = new File(targetFolder, this.parameterizeString(this.movieName) + ".jpg");
+      
+      OutputStream outputstream = new FileOutputStream(destination);
+      
+      System.out.println(destination.getAbsolutePath());
+      
+      int read = 0;
+      
+      InputStream stream;
+      stream = uploadedFile.getInputstream();
+      byte[] buffer = new byte[(int) this.getMoviePosterFile().getSize() ];
+      
+      while ((read = stream.read(buffer)) != -1) {
+        outputstream.write(buffer, 0, read);
+      }
+      
+      stream.close();
+      outputstream.flush();
+      outputstream.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  
+  private String parameterizeString(String string) {
+    String parameterizedString = string.toLowerCase();
+
+    parameterizedString = parameterizedString.replace("(", "");
+    parameterizedString = parameterizedString.replace(")", "");
+    parameterizedString = parameterizedString.replace(" ", "-");
+    
+    return parameterizedString;
+  }
+  
   public String saveMovie() {
     this.movie.setName(this.movieName);
     this.movie.setDescription(this.movieDescription);
     this.movie.setGenre(this.movieGenre);
+    
+    InputStream stream;
+
+    System.out.println("uploadMovie =======================");
+    try {
+      this.copyUploadedFile(this.getMoviePosterFile());
+      this.movie.setPoster(this.parameterizeString(this.movieName) + ".jpg");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    System.out.println("===================================");
     
     if (this.movie.getId() == 0) {
       this.createMovie();
@@ -62,7 +120,13 @@ public class AdminBean implements Serializable {
     movieDAO.update(this.movie);
     System.out.println("===================================");
   }
-
+  
+  public void uploadMoviePoster() {
+    System.out.println("uploadMoviePoster =================");
+    System.out.println(this.moviePosterFile);
+    System.out.println("===================================");
+  }
+  
   public int getMovieId() {
     return movieId;
   }
@@ -155,6 +219,14 @@ public class AdminBean implements Serializable {
 
   public void setMovieGenre(Genre movieGenre) {
     this.movieGenre = movieGenre;
+  }
+
+  public UploadedFile getMoviePosterFile() {
+    return moviePosterFile;
+  }
+
+  public void setMoviePosterFile(UploadedFile moviePosterFile) {
+    this.moviePosterFile = moviePosterFile;
   }
 
   private HttpServletRequest getRequest() {
