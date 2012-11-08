@@ -9,6 +9,7 @@
     <class>com.canchita.models.ScheduleItem</class>
     <class>com.canchita.models.Ticket</class>
     <class>com.canchita.models.AdminUser</class>
+    <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/canchita"/>

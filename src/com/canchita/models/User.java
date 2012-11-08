@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @Entity(name = "USER")
 @Table(name = "users")
+@Cacheable(false)
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -18,7 +19,7 @@ public class User implements Serializable {
   private String password;
   private String dni;
   private int points;
-  @OneToMany(mappedBy="user")
+  @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<Ticket> tickets;
   
   public int getId() {
@@ -62,8 +63,5 @@ public class User implements Serializable {
   }
   public void setTickets(List<Ticket> tickets) {
     this.tickets = tickets;
-  }
-  public static long getSerialversionuid() {
-    return serialVersionUID;
   }
 }

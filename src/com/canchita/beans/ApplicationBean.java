@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class ApplicationBean implements Serializable {
   private static final long serialVersionUID = 1L;
 

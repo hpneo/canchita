@@ -2,6 +2,7 @@ package com.canchita.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.canchita.dao.*;
 import com.canchita.models.*;
@@ -37,8 +38,17 @@ public class MovieBean implements Serializable {
       ticket.setScheduleItem(this.scheduleItem);
       ticket.setQuantity(1);
       ticket.setUser(new ApplicationBean().getCurrentUser());
+      ticket.setBought_at(new Date());
       
       ticket = ticketDAO.create(ticket);
+      
+      System.out.println("updateUser");
+      User user = ticket.getUser();
+      int points = user.getPoints();
+      user.setPoints(points + 1);
+      
+      UserDAO userDAO = new UserDAO();
+      userDAO.update(user);
       
       System.out.println("buyTicket=======================================");
       System.out.println(ticket);

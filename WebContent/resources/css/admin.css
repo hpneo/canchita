@@ -94,6 +94,11 @@ table td {
 	padding: 5px 10px;
 }
 
+table.jqplot-table-legend {
+  width: auto;
+  min-width: auto;
+}
+
 .link {
 	font-size: 14px;
 }

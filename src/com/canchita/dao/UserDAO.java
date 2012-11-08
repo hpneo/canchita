@@ -8,6 +8,7 @@ import com.canchita.models.*;
 
 public class UserDAO implements ModelDAO<User> {
   
+  @PersistenceContext
   private EntityManager em = null;
   
   public UserDAO() {
@@ -37,6 +38,7 @@ public class UserDAO implements ModelDAO<User> {
 
   @Override
   public User create(User record) {
+    System.out.println("User#create");
     this.em.getTransaction().begin();
     this.em.persist(record);
     this.em.flush();
@@ -47,6 +49,7 @@ public class UserDAO implements ModelDAO<User> {
 
   @Override
   public User update(User record) {
+    System.out.println("User#update");
     User user = this.find(record.getId());
     user.setDni(record.getDni());
     user.setEmail(record.getEmail());

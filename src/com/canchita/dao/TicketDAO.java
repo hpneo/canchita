@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 public class TicketDAO implements ModelDAO<Ticket> {
   
+  @PersistenceContext
   private EntityManager em = null;
   
   public TicketDAO() {

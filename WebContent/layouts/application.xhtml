@@ -25,7 +25,7 @@
 	    <ui:insert name="nav">
 	      <h:outputLink value="#{facesContext.externalContext.requestContextPath}">Inicio</h:outputLink>
         <h:outputLink value="cartelera.xhtml">En cartelera</h:outputLink>
-        <h:outputLink value="register.xhtml" class="nav-right" rendered="#{empty applicationBean.currentUser}">Regitrarse</h:outputLink>
+        <h:outputLink value="register.xhtml" class="nav-right" rendered="#{empty applicationBean.currentUser}">Registrarse</h:outputLink>
         <h:outputLink value="auth.xhtml" class="nav-right" rendered="#{empty applicationBean.currentUser}">Iniciar sesión</h:outputLink>
         <h:outputLink value="my_tickets.xhtml" class="nav-right" rendered="#{applicationBean.currentUser ne null}">Mis tickets</h:outputLink>
 	    </ui:insert>

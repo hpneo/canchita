@@ -4,10 +4,24 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:p="http://primefaces.org/ui">
   <ui:composition template="../layouts/admin.xhtml">
     <ui:define name="body">
-      <h2>Admin</h2>
+      <h2>Estadísticas de ventas</h2>
+      <h3>
+        Desde
+        <h:outputText value="#{adminBean.statsBean.statsLimits[0]}">
+          <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Lima" type="both" />
+        </h:outputText>
+        hasta
+        <h:outputText value="#{adminBean.statsBean.statsLimits[1]}">
+          <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Lima" type="both" />
+        </h:outputText>
+      </h3>
+      <p:lineChart value="#{adminBean.statsBean.linearModel}" legendPosition="ne"
+        zoom="true" animate="true" minY="0" maxY="20"
+        seriesColors="2C3F94" />
     </ui:define>
   </ui:composition>
 </html>

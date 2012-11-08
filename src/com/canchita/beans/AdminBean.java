@@ -35,6 +35,7 @@ public class AdminBean implements Serializable {
   private List<Movie> movies;
   private List<Schedule> schedules;
   private List<User> users;
+  private List<Ticket> tickets;
 
   private Movie movie;
   private Schedule schedule;
@@ -171,6 +172,20 @@ public class AdminBean implements Serializable {
 
   public void setUsers(List<User> users) {
     this.users = users;
+  }
+  
+  public List<Ticket> getTickets() {
+    TicketDAO ticketDAO = new TicketDAO();
+    this.tickets = ticketDAO.list();
+    return this.tickets;
+  }
+  
+  public void setTickets(List<Ticket> tickets) {
+    this.tickets = tickets;
+  }
+  
+  public StatsBean getStatsBean() {
+    return new StatsBean(this.getTickets());
   }
 
   public Movie getMovie() {
