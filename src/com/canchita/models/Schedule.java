@@ -1,6 +1,8 @@
 package com.canchita.models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.persistence.*;
@@ -21,6 +23,17 @@ public class Schedule implements Serializable {
   @OneToMany(mappedBy="schedule", fetch=FetchType.LAZY)
   @JoinColumn(name="schedule_items")
   private List<ScheduleItem> scheduleItems;
+  
+  @Override
+  public boolean equals(Object obj) {
+    System.out.println("equals");
+    if (obj instanceof Schedule) {
+      return ((Schedule)obj).getId() == this.getId();
+    }
+    else {
+      return false;
+    }
+  }
 
   public int getId() {
     return id;
@@ -51,5 +64,14 @@ public class Schedule implements Serializable {
   }
   public void setScheduleItems(List<ScheduleItem> scheduleItems) {
     this.scheduleItems = scheduleItems;
+  }
+  
+  public String getLabel() {
+    GregorianCalendar calendar = new GregorianCalendar();
+    calendar.setFirstDayOfWeek(Calendar.MONDAY);
+    
+    SimpleDateFormat sdf_time = new SimpleDateFormat("EEEE dd/MM/yyyy");
+    
+    return this.movie.getName() + " : " + sdf_time.format(this.start_at) + " - " + sdf_time.format(this.end_at);
   }
 }

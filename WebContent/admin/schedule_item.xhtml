@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:p="http://primefaces.org/ui">
+  <ui:composition template="../layouts/admin.xhtml">
+    <ui:define name="body">
+      <h2>
+        Crear función
+      </h2>
+      <h:form>
+        <p>
+          <h:outputLabel for="schedule_item_schedule" value="Horario" />
+          <h:selectOneMenu id="schedule_item_schedule" value="#{adminBean.scheduleItemSchedule}" converter="#{movieBean.scheduleConverter}" class="big" label="Horario">
+            <f:selectItems value="#{utilsBean.schedules}" var="schedule" itemValue="#{schedule}" itemLabel="#{schedule.label}" />
+          </h:selectOneMenu>
+        </p>
+        <p>
+          <h:outputLabel for="schedule_item_start_at" value="Inicia:" />
+          <h:message for="schedule_item_start_at" class="validate-error" />
+          <p:calendar value="#{adminBean.scheduleItemStartAt}" id="schedule_item_start_at" styleClass="date">
+            <f:validateRequired />
+          </p:calendar>
+        </p>
+        <p>
+          <h:outputLabel for="schedule_item_duration" value="Duración:" />
+          <h:inputText id="schedule_item_duration" value="#{adminBean.scheduleItemDuration}" class="string" label="Duración" />
+        </p>
+        <p>
+          <h:outputLabel for="schedule_item_price" value="Precio:" />
+          <h:inputText id="schedule_item_price" value="#{adminBean.scheduleItemPrice}" class="string" label="Precio" />
+        </p>
+        <p>
+          <p:commandButton value="Crear función" action="#{adminBean.saveScheduleItem}" styleClass="button" ajax="false">
+            <f:param name="schedule_item_id" value="#{adminBean.scheduleItem.id}" />
+          </p:commandButton>
+        </p>
+      </h:form>
+    </ui:define>
+  </ui:composition>
+</html>

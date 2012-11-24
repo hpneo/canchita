@@ -39,5 +39,10 @@ public class UtilsBean {
     MovieDAO movieDAO = new MovieDAO();
     return movieDAO.list();
   }
+  
+  public List<Schedule> getSchedules() {
+    ScheduleDAO scheduleDAO = new ScheduleDAO();
+    return scheduleDAO.list();
+  }
 
 }

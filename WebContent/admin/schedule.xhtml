@@ -8,7 +8,13 @@
       xmlns:p="http://primefaces.org/ui">
   <ui:composition template="../layouts/admin.xhtml">
     <ui:define name="body">
-      <h2>Crear horario</h2>
+      <h2>
+        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/admin/schedule_item.xhtml" class="button mini">
+          <f:param name="schedule_id" value="#{adminBean.schedule.id}" />
+          Crear función
+        </h:outputLink>
+        Crear horario
+      </h2>
       <h:form>
         <p>
           <h:outputLabel for="schedule_movie" value="Película:" />

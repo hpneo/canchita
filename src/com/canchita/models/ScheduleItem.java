@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 @Entity(name = "SCHEDULE_ITEM")
 @Table(name = "schedule_items")
+@Cacheable(false)
 public class ScheduleItem implements Serializable {
   private static final long serialVersionUID = 1L;
   

@@ -112,6 +112,11 @@ public class MovieBean implements Serializable {
     return new MovieConverter(utilsBean.getMovies());
   }
   
+  public Converter getScheduleConverter() {
+    UtilsBean utilsBean = new UtilsBean();
+    return new ScheduleConverter(utilsBean.getSchedules());
+  }
+  
   private HttpServletRequest getRequest() {
     return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
   }

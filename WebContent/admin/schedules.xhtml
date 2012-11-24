@@ -43,6 +43,13 @@
                 <f:convertNumber currencySymbol="S/. " maxFractionDigits="2" groupingUsed="true" type="currency" locale="en_ES" />
               </h:outputText>
             </h:column>
+		        <h:column>
+		          <f:facet name="header">Acciones</f:facet>
+		          <h:outputLink value="#{facesContext.externalContext.requestContextPath}/admin/schedule_item.xhtml">
+		            <f:param name="schedule_item_id" value="#{scheduleItem.id}" />
+		            Editar
+		          </h:outputLink>
+		        </h:column>
           </h:dataTable>
         </h:column>
         <h:column>

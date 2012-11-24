@@ -31,7 +31,9 @@ public class AdminBean implements Serializable {
   private int movieId;
   @ManagedProperty("#{param.schedule_id}")
   private int scheduleId;
-  
+  @ManagedProperty("#{param.schedule_item_id}")
+  private int scheduleItemId;
+
   private List<Movie> movies;
   private List<Schedule> schedules;
   private List<User> users;
@@ -39,7 +41,8 @@ public class AdminBean implements Serializable {
 
   private Movie movie;
   private Schedule schedule;
-  
+  private ScheduleItem scheduleItem;
+
   private String movieName;
   private String movieDescription;
   private Genre movieGenre;
@@ -48,6 +51,11 @@ public class AdminBean implements Serializable {
   private Date scheduleStartAt;
   private Date scheduleEndAt;
   
+  private Schedule scheduleItemSchedule;
+  private Date scheduleItemStartAt;
+  private int scheduleItemDuration;
+  private float scheduleItemPrice;
+
   private void copyUploadedFile(UploadedFile uploadedFile) {
     try {
       File targetFolder = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/images/posters"));
@@ -149,6 +157,37 @@ public class AdminBean implements Serializable {
     scheduleDAO.update(this.schedule);
   }
   
+  public String saveScheduleItem() {
+    this.scheduleItem.setSchedule(this.scheduleItemSchedule);
+    this.scheduleItem.setStart_at(this.scheduleItemStartAt);
+    this.scheduleItem.setDuration(this.scheduleItemDuration);
+    this.scheduleItem.setPrice(this.scheduleItemPrice);
+
+    System.out.println("=================================");
+    System.out.println(this.scheduleItem.getId());
+    System.out.println(this.scheduleItem.getSchedule());
+    System.out.println("=================================");
+    
+    if (this.scheduleItem.getId() == 0) {
+      this.createScheduleItem();
+    }
+    else {
+      this.updateScheduleItem();
+    }
+    
+    return "/admin/schedules.xhtml?faces-redirect=true";
+  }
+  
+  private void createScheduleItem() {
+    ScheduleItemDAO scheduleItemDAO = new ScheduleItemDAO();
+    scheduleItemDAO.create(this.scheduleItem);
+  }
+  
+  private void updateScheduleItem() {
+    ScheduleItemDAO scheduleItemDAO = new ScheduleItemDAO();
+    scheduleItemDAO.update(this.scheduleItem);
+  }
+  
   public int getMovieId() {
     return movieId;
   }
@@ -163,6 +202,14 @@ public class AdminBean implements Serializable {
 
   public void setScheduleId(int scheduleId) {
     this.scheduleId = scheduleId;
+  }
+  
+  public int getScheduleItemId() {
+    return scheduleItemId;
+  }
+
+  public void setScheduleItemId(int scheduleItemId) {
+    this.scheduleItemId = scheduleItemId;
   }
   
   public List<Movie> getMovies() {
@@ -240,6 +287,22 @@ public class AdminBean implements Serializable {
   public void setSchedule(Schedule schedule) {
     this.schedule = schedule;
   }
+  
+  public ScheduleItem getScheduleItem() {
+    ScheduleItemDAO scheduleItemDAO = new ScheduleItemDAO();
+    if (this.scheduleItemId == 0) {
+      this.scheduleItem = new ScheduleItem();
+    }
+    else {
+      this.scheduleItem = scheduleItemDAO.find(this.scheduleItemId);
+    }
+    
+    return this.scheduleItem;
+  }
+
+  public void setScheduleItem(ScheduleItem scheduleItem) {
+    this.scheduleItem = scheduleItem;
+  }
 
   public String getMovieName() {
     return this.getMovie().getName();
@@ -295,6 +358,43 @@ public class AdminBean implements Serializable {
 
   public void setScheduleEndAt(Date scheduleEndAt) {
     this.scheduleEndAt = scheduleEndAt;
+  }
+
+  public Schedule getScheduleItemSchedule() {
+    if (this.scheduleId == 0) {
+      return this.getScheduleItem().getSchedule();
+    }
+    else {
+      return this.getSchedule();
+    }
+  }
+
+  public void setScheduleItemSchedule(Schedule scheduleItemSchedule) {
+    this.scheduleItemSchedule = scheduleItemSchedule;
+  }
+  
+  public Date getScheduleItemStartAt() {
+    return this.getScheduleItem().getStart_at();
+  }
+
+  public void setScheduleItemStartAt(Date scheduleItemStartAt) {
+    this.scheduleItemStartAt = scheduleItemStartAt;
+  }
+
+  public int getScheduleItemDuration() {
+    return this.getScheduleItem().getDuration();
+  }
+
+  public void setScheduleItemDuration(int scheduleItemDuration) {
+    this.scheduleItemDuration = scheduleItemDuration;
+  }
+
+  public float getScheduleItemPrice() {
+    return this.getScheduleItem().getPrice();
+  }
+
+  public void setScheduleItemPrice(float scheduleItemPrice) {
+    this.scheduleItemPrice = scheduleItemPrice;
   }
 
   private HttpServletRequest getRequest() {
