@@ -9,8 +9,8 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.commons.codec.binary.Hex;
 
-import com.canchita.models.Genre;
-import com.canchita.dao.GenreDAO;
+import com.canchita.models.*;
+import com.canchita.dao.*;
 
 @ManagedBean
 public class UtilsBean {
@@ -33,6 +33,11 @@ public class UtilsBean {
   public List<Genre> getGenres() {
     GenreDAO genreDAO = new GenreDAO();
     return genreDAO.list();
+  }
+  
+  public List<Movie> getMovies() {
+    MovieDAO movieDAO = new MovieDAO();
+    return movieDAO.list();
   }
 
 }

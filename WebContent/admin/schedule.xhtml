@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:p="http://primefaces.org/ui">
+  <ui:composition template="../layouts/admin.xhtml">
+    <ui:define name="body">
+      <h2>Crear horario</h2>
+      <h:form>
+        <p>
+          <h:outputLabel for="schedule_movie" value="Película:" />
+          <h:selectOneMenu id="schedule_movie" value="#{adminBean.scheduleMovie}" converter="#{movieBean.movieConverter}" class="big" label="Película">
+            <f:selectItems value="#{utilsBean.movies}" var="movie" itemValue="#{movie}" itemLabel="#{movie.name}" />
+          </h:selectOneMenu>
+        </p>
+        <p>
+          <h:outputLabel for="schedule_start_at" value="Inicia:" />
+          <h:message for="schedule_start_at" class="validate-error" />
+          <p:calendar value="#{adminBean.scheduleStartAt}" id="schedule_start_at" styleClass="date" />
+        </p>
+        <p>
+          <h:outputLabel for="schedule_end_at" value="Termina:" />
+          <h:message for="schedule_end_at" class="validate-error" />
+          <p:calendar value="#{adminBean.scheduleEndAt}" id="schedule_end_at" styleClass="date" />
+        </p>
+        <p>
+          <p:commandButton value="Crear horario" action="#{adminBean.saveSchedule}" styleClass="button" ajax="false">
+            <f:param name="schedule_id" value="#{adminBean.schedule.id}" />
+          </p:commandButton>
+        </p>
+      </h:form>
+    </ui:define>
+  </ui:composition>
+</html>

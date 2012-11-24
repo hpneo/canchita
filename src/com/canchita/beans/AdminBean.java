@@ -44,6 +44,10 @@ public class AdminBean implements Serializable {
   private String movieDescription;
   private Genre movieGenre;
   
+  private Movie scheduleMovie;
+  private Date scheduleStartAt;
+  private Date scheduleEndAt;
+  
   private void copyUploadedFile(UploadedFile uploadedFile) {
     try {
       File targetFolder = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/images/posters"));
@@ -87,16 +91,14 @@ public class AdminBean implements Serializable {
     this.movie.setDescription(this.movieDescription);
     this.movie.setGenre(this.movieGenre);
     
-    InputStream stream;
-
-    System.out.println("uploadMovie =======================");
     try {
+      
       this.copyUploadedFile(this.getMoviePosterFile());
       this.movie.setPoster(this.parameterizeString(this.movieName) + ".jpg");
+      
     } catch (Exception e) {
       e.printStackTrace();
     }
-    System.out.println("===================================");
     
     if (this.movie.getId() == 0) {
       this.createMovie();
@@ -109,23 +111,42 @@ public class AdminBean implements Serializable {
   }
   
   private void createMovie() {
-    System.out.println("createMovie =======================");
     MovieDAO movieDAO = new MovieDAO();
     movieDAO.create(this.movie);
-    System.out.println("===================================");
   }
   
   private void updateMovie() {
-    System.out.println("updateMovie =======================");
     MovieDAO movieDAO = new MovieDAO();
     movieDAO.update(this.movie);
-    System.out.println("===================================");
   }
   
   public void uploadMoviePoster() {
-    System.out.println("uploadMoviePoster =================");
     System.out.println(this.moviePosterFile);
-    System.out.println("===================================");
+  }
+  
+  public String saveSchedule() {
+    this.schedule.setMovie(this.scheduleMovie);
+    this.schedule.setStart_at(this.scheduleStartAt);
+    this.schedule.setEnd_at(this.scheduleEndAt);
+    
+    if (this.schedule.getId() == 0) {
+      this.createSchedule();
+    }
+    else {
+      this.updateSchedule();
+    }
+    
+    return "/admin/schedules.xhtml?faces-redirect=true";
+  }
+  
+  private void createSchedule() {
+    ScheduleDAO scheduleDAO = new ScheduleDAO();
+    scheduleDAO.create(this.schedule);
+  }
+  
+  private void updateSchedule() {
+    ScheduleDAO scheduleDAO = new ScheduleDAO();
+    scheduleDAO.update(this.schedule);
   }
   
   public int getMovieId() {
@@ -205,7 +226,15 @@ public class AdminBean implements Serializable {
   }
 
   public Schedule getSchedule() {
-    return schedule;
+    ScheduleDAO scheduleDAO = new ScheduleDAO();
+    if (this.scheduleId == 0) {
+      this.schedule = new Schedule();
+    }
+    else {
+      this.schedule = scheduleDAO.find(this.scheduleId);
+    }
+    
+    return this.schedule;
   }
 
   public void setSchedule(Schedule schedule) {
@@ -242,6 +271,30 @@ public class AdminBean implements Serializable {
 
   public void setMoviePosterFile(UploadedFile moviePosterFile) {
     this.moviePosterFile = moviePosterFile;
+  }
+
+  public Movie getScheduleMovie() {
+    return this.getSchedule().getMovie();
+  }
+
+  public void setScheduleMovie(Movie scheduleMovie) {
+    this.scheduleMovie = scheduleMovie;
+  }
+
+  public Date getScheduleStartAt() {
+    return this.getSchedule().getStart_at();
+  }
+
+  public void setScheduleStartAt(Date scheduleStartAt) {
+    this.scheduleStartAt = scheduleStartAt;
+  }
+
+  public Date getScheduleEndAt() {
+    return this.getSchedule().getEnd_at();
+  }
+
+  public void setScheduleEndAt(Date scheduleEndAt) {
+    this.scheduleEndAt = scheduleEndAt;
   }
 
   private HttpServletRequest getRequest() {

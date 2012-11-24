@@ -8,7 +8,7 @@
   <ui:composition template="../layouts/admin.xhtml">
     <ui:define name="body">
       <h2>
-        <a href="admin/new_schedule.xhtml" class="button mini">Crear horario</a>
+        <a href="#{facesContext.externalContext.requestContextPath}/admin/schedule.xhtml" class="button mini">Crear horario</a>
         Horarios
       </h2>
       <h:dataTable value="#{adminBean.schedules}" var="schedule" styleClass="parent" headerClass="table_header" rowClasses="even,odd">
@@ -47,6 +47,10 @@
         </h:column>
         <h:column>
           <f:facet name="header">Acciones</f:facet>
+          <h:outputLink value="#{facesContext.externalContext.requestContextPath}/admin/schedule.xhtml">
+            <f:param name="schedule_id" value="#{schedule.id}" />
+            Editar
+          </h:outputLink>
         </h:column>
       </h:dataTable>
     </ui:define>

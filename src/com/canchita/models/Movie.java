@@ -22,6 +22,17 @@ public class Movie implements Serializable {
   @OneToMany(mappedBy="movie")
   private List<Schedule> schedules;
   
+  @Override
+  public boolean equals(Object obj) {
+    System.out.println("equals");
+    if (obj instanceof Movie) {
+      return ((Movie)obj).getId() == this.getId();
+    }
+    else {
+      return false;
+    }
+  }
+  
   public int getId() {
     return id;
   }
