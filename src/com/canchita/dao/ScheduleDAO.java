@@ -8,11 +8,14 @@ import java.util.Map.Entry;
 
 import com.canchita.models.*;
 
+import javax.naming.InitialContext;
 import javax.persistence.*;
+import javax.transaction.UserTransaction;
 
 public class ScheduleDAO implements ModelDAO<Schedule> {
   
   private EntityManager em = null;
+  private UserTransaction transaction = null;
   
   public ScheduleDAO() {
     this.em = this.createEntityManager();
@@ -41,10 +44,14 @@ public class ScheduleDAO implements ModelDAO<Schedule> {
 
   @Override
   public Schedule create(Schedule record) {
-    this.em.getTransaction().begin();
-    this.em.persist(record);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.persist(record);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
     return record;
   }
@@ -57,20 +64,28 @@ public class ScheduleDAO implements ModelDAO<Schedule> {
     schedule.setEnd_at(record.getEnd_at());
     schedule.setScheduleItems(record.getScheduleItems());
     
-    this.em.getTransaction().begin();
-    this.em.merge(schedule);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.merge(schedule);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
     return schedule;
   }
 
   @Override
   public void delete(Schedule record) {
-    this.em.getTransaction().begin();
-    this.em.remove(record);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.remove(record);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
   public List<Schedule> query(Map<String,Object> attributes) {
@@ -117,5 +132,17 @@ public class ScheduleDAO implements ModelDAO<Schedule> {
     }
     
     return this.em;
+  }
+  
+  private UserTransaction getTransaction() {
+    if (this.transaction == null) {
+      try {
+        this.transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    
+    return this.transaction;
   }
 }

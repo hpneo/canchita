@@ -2,7 +2,10 @@ package com.canchita.dao;
 
 import java.util.*;
 import java.util.Map.*;
+
+import javax.naming.InitialContext;
 import javax.persistence.*;
+import javax.transaction.UserTransaction;
 
 import com.canchita.models.*;
 
@@ -10,6 +13,7 @@ public class AdminUserDAO implements ModelDAO<AdminUser> {
   
   @PersistenceContext
   private EntityManager em = null;
+  private UserTransaction transaction = null;
   
   public AdminUserDAO() {
     this.em = this.createEntityManager();
@@ -39,10 +43,14 @@ public class AdminUserDAO implements ModelDAO<AdminUser> {
   @Override
   public AdminUser create(AdminUser record) {
     System.out.println("AdminUser#create");
-    this.em.getTransaction().begin();
-    this.em.persist(record);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.em.getTransaction().begin();
+      this.em.persist(record);
+      this.em.flush();
+      this.em.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
     return record;
   }
@@ -54,20 +62,28 @@ public class AdminUserDAO implements ModelDAO<AdminUser> {
     adminUser.setEmail(record.getEmail());
     adminUser.setPassword(record.getPassword());
     
-    this.em.getTransaction().begin();
-    this.em.merge(adminUser);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.em.getTransaction().begin();
+      this.em.merge(adminUser);
+      this.em.flush();
+      this.em.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
     return adminUser;
   }
 
   @Override
   public void delete(AdminUser record) {
-    this.em.getTransaction().begin();
-    this.em.remove(record);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.remove(record);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
   public AdminUser find_by(Map<String,String> attributes) {
@@ -117,6 +133,18 @@ public class AdminUserDAO implements ModelDAO<AdminUser> {
     }
     
     return this.em;
+  }
+  
+  private UserTransaction getTransaction() {
+    if (this.transaction == null) {
+      try {
+        this.transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    
+    return this.transaction;
   }
 
 }

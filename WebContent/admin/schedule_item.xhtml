@@ -21,7 +21,7 @@
         <p>
           <h:outputLabel for="schedule_item_start_at" value="Inicia:" />
           <h:message for="schedule_item_start_at" class="validate-error" />
-          <p:calendar value="#{adminBean.scheduleItemStartAt}" id="schedule_item_start_at" styleClass="date">
+          <p:calendar value="#{adminBean.scheduleItemStartAt}" id="schedule_item_start_at" styleClass="date" pattern="MM/dd/yyyy hh:mm a">
             <f:validateRequired />
           </p:calendar>
         </p>

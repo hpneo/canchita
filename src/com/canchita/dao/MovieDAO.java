@@ -8,11 +8,14 @@ import java.util.Map.Entry;
 
 import com.canchita.models.*;
 
+import javax.naming.InitialContext;
 import javax.persistence.*;
+import javax.transaction.UserTransaction;
 
 public class MovieDAO implements ModelDAO<Movie> {
 
   private EntityManager em = null;
+  private UserTransaction transaction = null;
   
   public MovieDAO() {
     this.em = this.createEntityManager();
@@ -41,18 +44,26 @@ public class MovieDAO implements ModelDAO<Movie> {
   
   @Override
   public void delete(Movie record) {
-    this.em.getTransaction().begin();
-    this.em.remove(record);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.remove(record);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
   @Override
   public Movie create(Movie record) {
-    this.em.getTransaction().begin();
-    this.em.persist(record);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.persist(record);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
     return record;
   }
@@ -66,10 +77,14 @@ public class MovieDAO implements ModelDAO<Movie> {
     movie.setPoster(record.getPoster());
     movie.setRating(record.getRating());
     
-    this.em.getTransaction().begin();
-    this.em.merge(movie);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.merge(movie);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
     return movie;
   }
@@ -118,5 +133,17 @@ public class MovieDAO implements ModelDAO<Movie> {
     }
     
     return this.em;
+  }
+  
+  private UserTransaction getTransaction() {
+    if (this.transaction == null) {
+      try {
+        this.transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    
+    return this.transaction;
   }
 }

@@ -38,6 +38,9 @@ public class ApplicationBean implements Serializable {
 
     parameters.put("start_at", start_at);
     parameters.put("end_at", end_at);
+
+    System.out.println("StartAt: " + start_at);
+    System.out.println("EndAt: " + end_at);
     
     List<Schedule> schedules = scheduleDAO.query(parameters);
     

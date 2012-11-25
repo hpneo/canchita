@@ -3,11 +3,14 @@ package com.canchita.dao;
 import java.util.*;
 import com.canchita.models.*;
 
+import javax.naming.InitialContext;
 import javax.persistence.*;
+import javax.transaction.UserTransaction;
 
 public class GenreDAO implements ModelDAO<Genre> {
 
   private EntityManager em = null;
+  private UserTransaction transaction = null;
   
   public GenreDAO() {
     this.em = this.createEntityManager();
@@ -36,10 +39,14 @@ public class GenreDAO implements ModelDAO<Genre> {
   
   @Override
   public Genre create(Genre record) {
-    this.em.getTransaction().begin();
-    this.em.persist(record);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.persist(record);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
     return record;
   }
@@ -49,20 +56,28 @@ public class GenreDAO implements ModelDAO<Genre> {
     Genre movie = this.find(record.getId());
     movie.setName(record.getName());
     
-    this.em.getTransaction().begin();
-    this.em.merge(movie);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.merge(movie);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
     return movie;
   }
   
   @Override
   public void delete(Genre record) {
-    this.em.getTransaction().begin();
-    this.em.remove(record);
-    this.em.flush();
-    this.em.getTransaction().commit();
+    try {
+      this.getTransaction().begin();
+      this.em.remove(record);
+      this.em.flush();
+      this.getTransaction().commit();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
   private EntityManager createEntityManager() {
@@ -72,5 +87,17 @@ public class GenreDAO implements ModelDAO<Genre> {
     }
     
     return this.em;
+  }
+  
+  private UserTransaction getTransaction() {
+    if (this.transaction == null) {
+      try {
+        this.transaction = (UserTransaction)new InitialContext().lookup("java:comp/UserTransaction");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    
+    return this.transaction;
   }
 }
