@@ -55,6 +55,16 @@ public class AdminBean implements Serializable {
   private Date scheduleItemStartAt;
   private int scheduleItemDuration;
   private float scheduleItemPrice;
+  
+  public String isAdmin() {
+    System.out.println("isAdmin");
+    return "false";
+  }
+  
+  public String getIsAdmin() {
+    System.out.println("isAdmin");
+    return "false";
+  }
 
   private void copyUploadedFile(UploadedFile uploadedFile) {
     try {

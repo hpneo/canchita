@@ -47,6 +47,31 @@ public class AuthBean implements Serializable {
     }
   }
   
+  public String authAdmin() {
+    AdminUserDAO adminUserDAO = new AdminUserDAO();
+    
+    Map<String,String> parameters = new HashMap<String,String>();
+    parameters.put("email", this.email);
+    parameters.put("password", UtilsBean.encryptPassword(this.password));
+    
+    AdminUser user = (AdminUser)adminUserDAO.find_by(parameters);
+    
+    if(user == null) {
+      this.message = "Email y/o contraseña incorrectos";
+      this.status = "error";
+      return null;
+    }
+    else {
+      Cookie cookie = new Cookie("current_admin", new Integer(user.getId()).toString());
+      this.getResponse().addCookie(cookie);
+      
+      System.out.println(this.findCookie("current_admin"));
+      this.message = "Bienvenido " + user.getEmail();
+      this.status = "success";
+      return "admin/index?faces-redirect=true";
+    }
+  }
+  
   public String getEmail() {
     return email;
   }
@@ -83,9 +108,11 @@ public class AuthBean implements Serializable {
   private Cookie findCookie(String cookieName) {
     Cookie cookie = null;
     Cookie[] cookies = this.getRequest().getCookies();
-    for(int i = 0; i < cookies.length; i++) {
-      if(cookies[i].getName().equals(cookieName)) {
-        cookie = cookies[i];
+    if (cookies != null) {
+      for(int i = 0; i < cookies.length; i++) {
+        if(cookies[i].getName().equals(cookieName)) {
+          cookie = cookies[i];
+        }
       }
     }
     return cookie;
