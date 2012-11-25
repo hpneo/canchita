@@ -9,6 +9,9 @@
   <ui:composition template="layouts/application.xhtml">
     <ui:define name="body">
       <div class="container" id="my_tickets">
+        <small>
+          <h:outputLink value="#{facesContext.externalContext.requestContextPath}/cartelera.xhtml">« Volver a cartelera</h:outputLink>
+        </small>
         <h2>Mis Tickets</h2>
         <ul class="gallery">
 	        <ui:repeat value="#{applicationBean.currentUser.tickets}" var="ticket">
