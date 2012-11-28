@@ -1,6 +1,7 @@
 package com.canchita.beans;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import com.canchita.converters.*;
 import javax.faces.bean.*;
 import javax.faces.context.*;
 import javax.faces.convert.Converter;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.*;
 
 @ManagedBean
@@ -25,6 +27,9 @@ public class MovieBean implements Serializable {
   private Movie movie;
   private Schedule currentSchedule;
   private ScheduleItem scheduleItem;
+  private Comment newComment;
+  
+  private String newCommentText;
   
   public String buyTicket() {
     Cookie cookie = this.findCookie("current_user");
@@ -45,7 +50,7 @@ public class MovieBean implements Serializable {
       System.out.println("updateUser");
       User user = ticket.getUser();
       int points = user.getPoints();
-      user.setPoints(points + 1);
+      user.setPoints(points + 6);
       
       UserDAO userDAO = new UserDAO();
       userDAO.update(user);
@@ -56,6 +61,34 @@ public class MovieBean implements Serializable {
       System.out.println("================================================");
       
       return "my_tickets?faces-redirect=true";
+    }
+  }
+  
+  public String comment() {
+    Cookie cookie = this.findCookie("current_user");
+    
+    if(cookie == null) {
+      return "auth?faces-redirect=true";
+    }
+    else {
+      CommentDAO commentDAO = new CommentDAO();
+      newComment = new Comment();
+      
+      newComment.setText(this.newCommentText);
+      newComment.setMovie(this.movie);
+      newComment.setUser(new ApplicationBean().getCurrentUser());
+      
+      commentDAO.create(newComment);
+      
+      System.out.println("updateUser");
+      User user = newComment.getUser();
+      int points = user.getPoints();
+      user.setPoints(points + 1);
+      
+      UserDAO userDAO = new UserDAO();
+      userDAO.update(user);
+
+      return "movie?id=" + this.id + "&faces-redirect=true";
     }
   }
   
@@ -91,6 +124,22 @@ public class MovieBean implements Serializable {
   
   public void setScheduleItem(ScheduleItem scheduleItem) {
     this.scheduleItem = scheduleItem;
+  }
+
+  public Comment getNewComment() {
+    return newComment;
+  }
+
+  public void setNewComment(Comment newComment) {
+    this.newComment = newComment;
+  }
+
+  public String getNewCommentText() {
+    return newCommentText;
+  }
+
+  public void setNewCommentText(String newCommentText) {
+    this.newCommentText = newCommentText;
   }
 
   public Converter getScheduleItemConverter() {

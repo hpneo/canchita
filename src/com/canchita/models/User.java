@@ -21,6 +21,8 @@ public class User implements Serializable {
   private int points;
   @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<Ticket> tickets;
+  @OneToMany(mappedBy="user")
+  private List<Comment> comments;
   
   public int getId() {
     return id;

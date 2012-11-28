@@ -31,11 +31,31 @@ form label {
   font-weight: 900;
 }
 
+form label.vertical.top {
+	vertical-align: top;
+}
+
 form input.string {
   border: solid 1px #fff;
   padding: 4px;
   border-radius: 2px;
   margin-left: 6px;
+}
+
+form textarea.string {
+  font-family: Arial, sans-serif;
+  font-size: 0.7em;
+  border: solid 1px #fff;
+  padding: 4px;
+  border-radius: 2px;
+  margin-left: 6px;
+  width: 320px;
+  height: 60px;
+}
+
+form textarea.stack {
+	display:block;
+	width: 100%;
 }
 
 form select.big {
@@ -305,4 +325,15 @@ form.session {
 
 #movie .column.poster img {
 	width: 100%;
+}
+
+.comment-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.comment-list small {
+	font-weight: 900;
+	text-transform: uppercase;
 }

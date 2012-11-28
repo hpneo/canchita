@@ -10,6 +10,7 @@
     <class>com.canchita.models.ScheduleItem</class>
     <class>com.canchita.models.Ticket</class>
     <class>com.canchita.models.AdminUser</class>
+    <class>com.canchita.models.Comment</class>
     <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 	</persistence-unit>
 </persistence>

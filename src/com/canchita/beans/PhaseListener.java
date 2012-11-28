@@ -1,6 +1,7 @@
 package com.canchita.beans;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;

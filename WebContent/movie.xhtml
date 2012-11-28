@@ -30,6 +30,32 @@
               </h:commandButton>
             </p>
           </h:form>
+          <h4>Comentarios</h4>
+          <h:form rendered="#{applicationBean.currentUser ne null}">
+            <p>
+              <h:outputLabel for="movie_comment" value="Comentario:" class="vertical top" />
+              <h:inputTextarea id="movie_comment" value="#{movieBean.newCommentText}" label="Descripción" class="string stack">
+                <f:validateRequired />
+              </h:inputTextarea>
+            </p>
+            <p>
+              <h:commandButton value="Comentar" action="#{movieBean.comment}" class="button">
+                <f:param name="id" value="#{movieBean.movie.id}" />
+              </h:commandButton>
+            </p>
+          </h:form>
+          <ul class="comment-list">
+	          <ui:repeat value="#{movieBean.movie.comments}" var="comment">
+	            <li>
+	             <small>
+	               <h:outputText value="#{comment.user.name}" /> escribió:
+	             </small>
+	             <p>
+                 <h:outputText value="#{comment.text}" />
+	             </p>
+	            </li>
+	          </ui:repeat>
+          </ul>
         </div>
       </div>
 		</ui:define>

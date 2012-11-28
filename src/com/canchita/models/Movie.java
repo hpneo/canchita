@@ -21,6 +21,8 @@ public class Movie implements Serializable {
   private String poster;
   @OneToMany(mappedBy="movie")
   private List<Schedule> schedules;
+  @OneToMany(mappedBy="movie")
+  private List<Comment> comments;
   
   @Override
   public boolean equals(Object obj) {
@@ -75,6 +77,14 @@ public class Movie implements Serializable {
   public void setSchedules(List<Schedule> schedules) {
     this.schedules = schedules;
   }
+  public List<Comment> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
+
   public static long getSerialversionuid() {
     return serialVersionUID;
   }

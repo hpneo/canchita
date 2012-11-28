@@ -25,11 +25,13 @@ public class ApplicationBean implements Serializable {
     
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(currentDate);
+    calendar.setFirstDayOfWeek(Calendar.MONDAY);
+    calendar.setTimeZone(TimeZone.getTimeZone("GMT-05:00"));
     
     calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
     Date start_at = calendar.getTime();
     
-    calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+    calendar.add(Calendar.DATE, 6);
     Date end_at = calendar.getTime();
     
     ScheduleDAO scheduleDAO = new ScheduleDAO();
@@ -39,8 +41,11 @@ public class ApplicationBean implements Serializable {
     parameters.put("start_at", start_at);
     parameters.put("end_at", end_at);
 
+    System.out.println("===========================================");
+    System.out.println("timeZone: " + calendar.getTimeZone());
     System.out.println("StartAt: " + start_at);
     System.out.println("EndAt: " + end_at);
+    System.out.println("===========================================");
     
     List<Schedule> schedules = scheduleDAO.query(parameters);
     
@@ -60,7 +65,7 @@ public class ApplicationBean implements Serializable {
     this.currentUser = null;
     if(this.findCookie("current_user") != null) {
       UserDAO userDAO = new UserDAO();
-      this.currentUser = userDAO.find(new Integer(this.findCookie("current_user").getValue()).intValue());
+      this.currentUser = (User) userDAO.find(new Integer(this.findCookie("current_user").getValue()).intValue());
     }
     return this.currentUser;
   }
