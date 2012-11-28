@@ -84,8 +84,4 @@ public class Movie implements Serializable {
   public void setComments(List<Comment> comments) {
     this.comments = comments;
   }
-
-  public static long getSerialversionuid() {
-    return serialVersionUID;
-  }
 }

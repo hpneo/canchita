@@ -10,6 +10,20 @@
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
   </servlet>
   
+  <servlet>
+    <servlet-name>JerseyServlet</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <param-value>com.canchita.rest</param-value>
+    </init-param>
+    <init-param>
+	    <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+	    <param-value>true</param-value>
+	  </init-param>
+	  <load-on-startup>1</load-on-startup>
+  </servlet>
+  
   <context-param>
     <param-name>primefaces.THEME</param-name>
     <param-value>none</param-value>
@@ -36,6 +50,11 @@
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>JerseyServlet</servlet-name>
+    <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
   
   <context-param>

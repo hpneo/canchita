@@ -31,7 +31,7 @@
             </p>
           </h:form>
           <h4>Comentarios</h4>
-          <h:form rendered="#{applicationBean.currentUser ne null}">
+          <h:form>
             <p>
               <h:outputLabel for="movie_comment" value="Comentario:" class="vertical top" />
               <h:inputTextarea id="movie_comment" value="#{movieBean.newCommentText}" label="Descripción" class="string stack">

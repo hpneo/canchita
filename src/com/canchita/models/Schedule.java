@@ -1,7 +1,6 @@
 package com.canchita.models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -15,6 +14,8 @@ public class Schedule implements Serializable {
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private int id;
+  @ManyToOne
+  @JoinColumn(name="movie_id")
   private Movie movie;
   @Temporal(value=TemporalType.DATE)
   private Date start_at;
