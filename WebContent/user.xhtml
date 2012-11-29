@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<ui:composition template="layouts/application.xhtml">
+		<ui:define name="body">
+      <div class="container" id="user">
+        <h2><h:outputText value="#{userBean.user.name}" /></h2>
+        <div class="column poster">
+          <img src="#{userBean.userAvatar}" width="150" />
+          <h:outputLink value="my_tickets.xhtml" class="stacked button" rendered="#{applicationBean.currentUser.id == userBean.user.id}">Mis tickets</h:outputLink>
+        </div>
+        <div class="column info">
+          <dl>
+            <dt>Email</dt>
+            <dd><h:outputText value="#{userBean.user.email}" /></dd>
+            <dt>Rating</dt>
+            <dd><h:outputText value="#{userBean.user.points}" /> puntos</dd>
+            <dt>Comentarios realizados</dt>
+            <dd>
+	            <ul class="comment-list">
+		            <ui:repeat value="#{userBean.user.comments}" var="comment">
+		              <li>
+		               <small>
+		                 Sobre <h:outputText value="#{comment.movie.name}" />:
+		               </small>
+		               <p>
+		                 <h:outputText value="#{comment.text}" />
+		               </p>
+		              </li>
+		            </ui:repeat>
+		          </ul>
+	          </dd>
+          </dl>
+        </div>
+      </div>
+		</ui:define>
+	</ui:composition>
+</html>

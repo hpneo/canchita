@@ -1,7 +1,6 @@
 package com.canchita.beans;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,7 +11,6 @@ import com.canchita.converters.*;
 import javax.faces.bean.*;
 import javax.faces.context.*;
 import javax.faces.convert.Converter;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.*;
 
 @ManagedBean

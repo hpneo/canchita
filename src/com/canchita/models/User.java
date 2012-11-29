@@ -2,6 +2,7 @@ package com.canchita.models;
 
 import java.util.*;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 import javax.persistence.*;
 
@@ -23,6 +24,18 @@ public class User implements Serializable {
   private List<Ticket> tickets;
   @OneToMany(mappedBy="user")
   private List<Comment> comments;
+  
+  public String getToken() {
+    String preToken = this.id + "|" + this.email + "|" + new Date().getTime();
+    String token = "";
+    try {
+      token = new sun.misc.BASE64Encoder().encode(preToken.getBytes("UTF8"));
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
+    
+    return token;
+  }
   
   public int getId() {
     return id;
@@ -65,5 +78,13 @@ public class User implements Serializable {
   }
   public void setTickets(List<Ticket> tickets) {
     this.tickets = tickets;
+  }
+
+  public List<Comment> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
   }
 }

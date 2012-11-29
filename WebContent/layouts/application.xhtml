@@ -2,7 +2,8 @@
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
 	<h:head>
 	  <title><ui:insert name="title">canchita.pe</ui:insert></title>
 	  <meta charset="UTF-8" />
@@ -29,6 +30,10 @@
         <h:outputLink value="register.xhtml" class="nav-right" rendered="#{empty applicationBean.currentUser}">Registrarse</h:outputLink>
         <h:outputLink value="auth.xhtml" class="nav-right" rendered="#{empty applicationBean.currentUser}">Iniciar sesión</h:outputLink>
         <h:outputLink value="my_tickets.xhtml" class="nav-right" rendered="#{applicationBean.currentUser ne null}">Mis tickets</h:outputLink>
+        <h:outputLink value="user.xhtml" class="nav-right" rendered="#{applicationBean.currentUser ne null}">
+          <f:param name="id" value="#{applicationBean.currentUser.id}" />
+          Mi perfil
+        </h:outputLink>
 	    </ui:insert>
 	  </div>
 	  <div id="body">

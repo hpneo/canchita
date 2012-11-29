@@ -112,6 +112,11 @@ form.session {
   padding: 3px 9px;
 }
 
+.button.stacked {
+	display: block;
+	text-align: center;
+}
+
 #header,
 #nav,
 #body,
@@ -293,6 +298,21 @@ form.session {
 
 /* #movie */
 
+.container .column {
+  display: block;
+  float: left;
+  padding: 1%;
+}
+
+.container .column.poster {
+  width: 28%;
+  text-align: center;
+}
+
+.container .column.info {
+  width: 58%;
+}
+
 #movie {
 	overflow: hidden;
 }
@@ -307,20 +327,6 @@ form.session {
 	text-transform: lowercase;
 	font-variant: small-caps;
   border-radius: 3px;
-}
-
-#movie .column {
-	display: block;
-	float: left;
-	padding: 1%;
-}
-
-#movie .column.poster {
-	width: 28%;
-}
-
-#movie .column.info {
-	width: 58%;
 }
 
 #movie .column.poster img {

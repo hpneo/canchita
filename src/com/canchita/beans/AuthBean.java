@@ -68,7 +68,7 @@ public class AuthBean implements Serializable {
       System.out.println(this.findCookie("current_admin"));
       this.message = "Bienvenido " + user.getEmail();
       this.status = "success";
-      return "admin/index?faces-redirect=true";
+      return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/admin/index?faces-redirect=true";
     }
   }
   

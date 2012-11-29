@@ -1,5 +1,6 @@
 package com.canchita.beans;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -12,10 +13,13 @@ import com.canchita.models.*;
 
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.imgscalr.Scalr;
+import org.imgscalr.Scalr.Mode;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -69,8 +73,10 @@ public class AdminBean implements Serializable {
   private void copyUploadedFile(UploadedFile uploadedFile) {
     try {
       File targetFolder = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/images/posters"));
+      File thumbFolder = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/images/thumbs"));
       
       File destination = new File(targetFolder, this.parameterizeString(this.movieName) + ".jpg");
+      File thumbDestination = new File(thumbFolder, this.parameterizeString(this.movieName) + ".jpg");
       
       OutputStream outputstream = new FileOutputStream(destination);
       
@@ -85,6 +91,22 @@ public class AdminBean implements Serializable {
       while ((read = stream.read(buffer)) != -1) {
         outputstream.write(buffer, 0, read);
       }
+      
+      BufferedImage image = ImageIO.read(uploadedFile.getInputstream());
+      
+      System.out.println("================================================");
+      System.out.println("inputStream" + uploadedFile.getInputstream());
+      System.out.println("thumb : " + image);
+      System.out.println("================================================");
+      
+      BufferedImage thumb = Scalr.resize(image, org.imgscalr.Scalr.Method.ULTRA_QUALITY, Mode.FIT_TO_WIDTH, 180, 306);
+
+      System.out.println("================================================");
+      System.out.println("thumbDestination : " + thumbDestination);
+      System.out.println("thumb : " + thumb);
+      System.out.println("================================================");
+      
+      ImageIO.write(thumb, "jpg", thumbDestination);
       
       stream.close();
       outputstream.flush();
@@ -110,10 +132,10 @@ public class AdminBean implements Serializable {
     this.movie.setGenre(this.movieGenre);
     
     try {
-      
-      this.copyUploadedFile(this.getMoviePosterFile());
-      this.movie.setPoster(this.parameterizeString(this.movieName) + ".jpg");
-      
+      if(this.getMoviePosterFile() != null) {
+        this.copyUploadedFile(this.getMoviePosterFile());
+        this.movie.setPoster(this.parameterizeString(this.movieName) + ".jpg");
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
