@@ -60,6 +60,33 @@ public class AdminBean implements Serializable {
   private int scheduleItemDuration;
   private float scheduleItemPrice;
   
+  public String getMovieAction() {
+    if (this.movieId == 0) {
+      return "Crear";
+    }
+    else {
+      return "Editar";
+    }
+  }
+  
+  public String getScheduleAction() {
+    if (this.scheduleId == 0) {
+      return "Crear";
+    }
+    else {
+      return "Editar";
+    }
+  }
+  
+  public String getScheduleItemAction() {
+    if (this.scheduleItemId == 0) {
+      return "Crear";
+    }
+    else {
+      return "Editar";
+    }
+  }
+  
   public String isAdmin() {
     System.out.println("isAdmin");
     return "false";

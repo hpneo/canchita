@@ -8,7 +8,10 @@
       xmlns:p="http://primefaces.org/ui">
   <ui:composition template="../layouts/admin.xhtml">
     <ui:define name="body">
-      <h2>Crear película</h2>
+      <h2>
+        <h:outputText value="#{adminBean.movieAction}" />
+        película
+      </h2>
       <h:form enctype="multipart/form-data">
         <p>
           <h:outputLabel for="movie_name" value="Nombre:" />
@@ -32,7 +35,7 @@
           <p:fileUpload id="movie_poster" value="#{adminBean.moviePosterFile}" mode="simple" />
         </p>
         <p>
-          <p:commandButton value="Crear película" action="#{adminBean.saveMovie}" styleClass="button" ajax="false">
+          <p:commandButton value="#{adminBean.movieAction} película" action="#{adminBean.saveMovie}" styleClass="button" ajax="false">
             <f:param name="movie_id" value="#{adminBean.movie.id}" />
           </p:commandButton>
         </p>

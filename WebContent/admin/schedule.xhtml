@@ -13,7 +13,8 @@
           <f:param name="schedule_id" value="#{adminBean.schedule.id}" />
           Crear función
         </h:outputLink>
-        Crear horario
+        <h:outputText value="#{adminBean.scheduleAction}" />
+        horario
       </h2>
       <h:form>
         <p>
@@ -33,7 +34,7 @@
           <p:calendar value="#{adminBean.scheduleEndAt}" id="schedule_end_at" styleClass="date" />
         </p>
         <p>
-          <p:commandButton value="Crear horario" action="#{adminBean.saveSchedule}" styleClass="button" ajax="false">
+          <p:commandButton value="#{adminBean.scheduleAction} horario" action="#{adminBean.saveSchedule}" styleClass="button" ajax="false">
             <f:param name="schedule_id" value="#{adminBean.schedule.id}" />
           </p:commandButton>
         </p>
